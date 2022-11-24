@@ -2,9 +2,10 @@ package main
 
 import (
 	"flag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-provider-scaffolding/internal/dcloudtb"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/hashicorp/terraform-provider-scaffolding/internal/provider"
 )
 
 // Run "go generate" to format example terraform files and generate the docs for the registry/website
@@ -35,10 +36,9 @@ func main() {
 	opts := &plugin.ServeOpts{
 		Debug: debugMode,
 
-		// TODO: update this string with the full name of your provider as used in your configs
-		ProviderAddr: "registry.terraform.io/hashicorp/scaffolding",
-
-		ProviderFunc: provider.New(version),
+		ProviderFunc: func() *schema.Provider {
+			return dcloudtb.Provider()
+		},
 	}
 
 	plugin.Serve(opts)
