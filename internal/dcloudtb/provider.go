@@ -39,7 +39,8 @@ func Provider() *schema.Provider {
 			},
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"dcloudtb_topologies": dataSourceTopologies(),
+			"dcloudtb_topologies":         dataSourceTopologies(),
+			"dcloudtb_inventory_networks": dataSourceInventoryNetworks(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloudtb_topology": resourceTopology(),

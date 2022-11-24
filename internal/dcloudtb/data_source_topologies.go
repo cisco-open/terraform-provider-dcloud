@@ -21,7 +21,32 @@ func dataSourceTopologies() *schema.Resource {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
-					Schema: topologyDataResourceSchema,
+					Schema: map[string]*schema.Schema{
+						"uid": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"name": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"description": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"datacenter": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"notes": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"status": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+					},
 				},
 			},
 		},
@@ -40,7 +65,7 @@ func dataSourceTopologiesRead(ctx context.Context, d *schema.ResourceData, m int
 	topologyResources := make([]map[string]interface{}, len(topologies))
 
 	for i, topology := range topologies {
-		topologyResources[i] = convert(topology)
+		topologyResources[i] = convertTopologyToDataResource(topology)
 	}
 
 	if err := d.Set("topologies", topologyResources); err != nil {
@@ -49,4 +74,16 @@ func dataSourceTopologiesRead(ctx context.Context, d *schema.ResourceData, m int
 	d.SetId(strconv.FormatInt(time.Now().Unix(), 10))
 
 	return diag.Diagnostics{}
+}
+
+func convertTopologyToDataResource(topology tbclient.Topology) map[string]interface{} {
+	resource := make(map[string]interface{})
+	resource["uid"] = topology.Uid
+	resource["name"] = topology.Name
+	resource["description"] = topology.Description
+	resource["datacenter"] = topology.Datacenter
+	resource["notes"] = topology.Notes
+	resource["status"] = topology.Status
+
+	return resource
 }

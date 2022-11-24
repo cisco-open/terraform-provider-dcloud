@@ -14,7 +14,32 @@ func resourceTopology() *schema.Resource {
 		ReadContext:   resourceTopologyRead,
 		UpdateContext: resourceTopologyUpdate,
 		DeleteContext: resourceTopologyDelete,
-		Schema:        topologyResourceSchema,
+		Schema: map[string]*schema.Schema{
+			"uid": &schema.Schema{
+				Type:     schema.TypeString,
+				Computed: true,
+			},
+			"name": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"description": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"datacenter": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"notes": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"status": &schema.Schema{
+				Type:     schema.TypeString,
+				Computed: true,
+			},
+		},
 	}
 }
 
