@@ -55,10 +55,10 @@ func resourceNetworkCreate(ctx context.Context, data *schema.ResourceData, i int
 	network := tbclient.Network{
 		Name:        data.Get("name").(string),
 		Description: data.Get("description").(string),
-		InventoryNetwork: tbclient.InventoryNetwork{
+		InventoryNetwork: &tbclient.InventoryNetwork{
 			Id: data.Get("inventory_network_id").(string),
 		},
-		Topology: tbclient.Topology{
+		Topology: &tbclient.Topology{
 			Uid: data.Get("topology_uid").(string),
 		},
 	}
@@ -107,10 +107,10 @@ func resourceNetworkUpdate(ctx context.Context, data *schema.ResourceData, i int
 		Uid:         data.Get("uid").(string),
 		Name:        data.Get("name").(string),
 		Description: data.Get("description").(string),
-		InventoryNetwork: tbclient.InventoryNetwork{
+		InventoryNetwork: &tbclient.InventoryNetwork{
 			Id: data.Get("inventory_network_id").(string),
 		},
-		Topology: tbclient.Topology{
+		Topology: &tbclient.Topology{
 			Uid: data.Get("topology_uid").(string),
 		},
 	}
