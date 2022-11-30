@@ -75,7 +75,7 @@ func dataSourceNetworksRead(ctx context.Context, d *schema.ResourceData, m inter
 	networkResources := make([]map[string]interface{}, len(networks))
 
 	for i, network := range networks {
-		networkResources[i] = convertNetworkToDataResource(network, topologyUid)
+		networkResources[i] = convertNetworkToDataResource(network)
 	}
 
 	if err := d.Set("networks", networkResources); err != nil {
@@ -86,7 +86,7 @@ func dataSourceNetworksRead(ctx context.Context, d *schema.ResourceData, m inter
 	return diag.Diagnostics{}
 }
 
-func convertNetworkToDataResource(network tbclient.Network, topologyUid string) map[string]interface{} {
+func convertNetworkToDataResource(network tbclient.Network) map[string]interface{} {
 	resource := make(map[string]interface{})
 	resource["uid"] = network.Uid
 	resource["name"] = network.Name
