@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"sort"
 	"strconv"
 	"time"
 	"wwwin-github.cisco.com/pov-services/kapua-tb-go-client/tbclient"
@@ -167,6 +168,10 @@ func dataSourceVms() *schema.Resource {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
+									"ip_address": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
 									"type": {
 										Type:     schema.TypeString,
 										Computed: true,
@@ -230,10 +235,18 @@ func convertVmDataResource(vm tbclient.Vm, topologyUid string) map[string]interf
 	resource := make(map[string]interface{})
 
 	addVmFields(vm, resource)
-	addAdvancedSettings(vm, resource)
-	addRemoteAccess(vm, resource)
-	addGuestAutomation(vm, resource)
-	addNics(vm, resource)
+	if as := convertAdvancedSettings(vm); as != nil {
+		resource["advanced_settings"] = as
+	}
+	if ra := convertRemoteAccess(vm); ra != nil {
+		resource["remote_access"] = ra
+	}
+	if ga := convertGuestAutomation(vm); ga != nil {
+		resource["guest_automation"] = ga
+	}
+	if nics := convertNics(vm); nics != nil {
+		resource["network_interfaces"] = nics
+	}
 
 	return resource
 }
@@ -250,7 +263,7 @@ func addVmFields(vm tbclient.Vm, resource map[string]interface{}) {
 	resource["topology_uid"] = vm.Topology.Uid
 }
 
-func addAdvancedSettings(vm tbclient.Vm, resource map[string]interface{}) {
+func convertAdvancedSettings(vm tbclient.Vm) []interface{} {
 	if advancedSettings := vm.AdvancedSettings; advancedSettings != nil {
 		as := make(map[string]interface{})
 
@@ -259,11 +272,12 @@ func addAdvancedSettings(vm tbclient.Vm, resource map[string]interface{}) {
 		as["not_started"] = advancedSettings.NotStarted
 		as["all_disks_non_persistent"] = advancedSettings.AllDisksNonPersistent
 
-		resource["advanced_settings"] = []interface{}{as}
+		return []interface{}{as}
 	}
+	return nil
 }
 
-func addRemoteAccess(vm tbclient.Vm, resource map[string]interface{}) {
+func convertRemoteAccess(vm tbclient.Vm) []interface{} {
 	if remoteAccess := vm.RemoteAccess; remoteAccess != nil {
 		ra := make(map[string]interface{})
 
@@ -274,8 +288,9 @@ func addRemoteAccess(vm tbclient.Vm, resource map[string]interface{}) {
 		addDisplayCredentials(remoteAccess, ra)
 		addInternalUrls(remoteAccess, ra)
 
-		resource["remote_access"] = []interface{}{ra}
+		return []interface{}{ra}
 	}
+	return nil
 }
 
 func addDisplayCredentials(remoteAccess *tbclient.VmRemoteAccess, ra map[string]interface{}) {
@@ -302,25 +317,32 @@ func addInternalUrls(remoteAccess *tbclient.VmRemoteAccess, ra map[string]interf
 	ra["internal_urls"] = internalUrls
 }
 
-func addGuestAutomation(vm tbclient.Vm, resource map[string]interface{}) {
+func convertGuestAutomation(vm tbclient.Vm) []interface{} {
 	if guestAutomation := vm.GuestAutomation; guestAutomation != nil {
 		ga := make(map[string]interface{})
 
 		ga["command"] = guestAutomation.Command
 		ga["delay_seconds"] = guestAutomation.DelaySecs
 
-		resource["guest_automation"] = []interface{}{ga}
+		return []interface{}{ga}
 	}
+	return nil
 }
 
-func addNics(vm tbclient.Vm, resource map[string]interface{}) {
+func convertNics(vm tbclient.Vm) []map[string]interface{} {
 	nics := make([]map[string]interface{}, len(vm.VmNetworkInterfaces))
+
+	sort.Slice(vm.VmNetworkInterfaces, func(i, j int) bool {
+		return vm.VmNetworkInterfaces[i].Name < vm.VmNetworkInterfaces[j].Name
+	})
+
 	for i, nic := range vm.VmNetworkInterfaces {
 		n := make(map[string]interface{})
 
 		n["uid"] = nic.Uid
 		n["name"] = nic.Name
 		n["mac_address"] = nic.MacAddress
+		n["ip_address"] = nic.IpAddress
 		n["type"] = nic.Type
 		n["network_uid"] = nic.Network.Uid
 
@@ -340,5 +362,5 @@ func addNics(vm tbclient.Vm, resource map[string]interface{}) {
 
 		nics[i] = n
 	}
-	resource["network_interfaces"] = nics
+	return nics
 }

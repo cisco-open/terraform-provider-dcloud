@@ -50,6 +50,7 @@ func Provider() *schema.Provider {
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloudtb_topology": resourceTopology(),
 			"dcloudtb_network":  resourceNetwork(),
+			"dcloudtb_vm":       resourceVm(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
@@ -61,5 +62,6 @@ func providerConfigure(ctx context.Context, data *schema.ResourceData) (interfac
 
 	var diags diag.Diagnostics
 
-	return tbclient.NewClient(&url, &authToken), diags
+	c := tbclient.NewClient(&url, &authToken)
+	return c, diags
 }
