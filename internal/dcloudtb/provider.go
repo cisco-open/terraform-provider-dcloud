@@ -2,7 +2,6 @@ package dcloudtb
 
 import (
 	"context"
-
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"wwwin-github.cisco.com/pov-services/kapua-tb-go-client/tbclient"
@@ -37,6 +36,10 @@ func Provider() *schema.Provider {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"debug": {
+				Type:     schema.TypeBool,
+				Optional: true,
+			},
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			"dcloudtb_topologies":         dataSourceTopologies(),
@@ -59,9 +62,13 @@ func Provider() *schema.Provider {
 func providerConfigure(ctx context.Context, data *schema.ResourceData) (interface{}, diag.Diagnostics) {
 	authToken := data.Get("auth_token").(string)
 	url := data.Get("tb_url").(string)
+	debug := data.Get("debug").(bool)
 
 	var diags diag.Diagnostics
 
 	c := tbclient.NewClient(&url, &authToken)
+	c.Debug = debug
+	c.UserAgent = "terraform-provider-dcloudtb/v0.0.1" // TODO - replace with actual application version, if possible
+
 	return c, diags
 }

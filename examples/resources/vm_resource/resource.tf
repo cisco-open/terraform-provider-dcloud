@@ -9,6 +9,7 @@ terraform {
 
   provider "dcloudtb" {
     tb_url = "https://tbv3-dev.dev.ciscodcloud.com/api"
+    debug = true
   }
 
 resource "dcloudtb_topology" "test_topology" {
