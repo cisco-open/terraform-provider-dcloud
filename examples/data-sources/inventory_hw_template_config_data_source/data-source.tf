@@ -12,16 +12,16 @@ provider "dcloudtb" {
 }
 
 resource "dcloudtb_topology" "test_topology" {
-  name = "Test Topology For Testing Inventory Networks"
-  description = "Will be used to load inventory networks"
+  name = "Test Topology For Testing Inventory HW Template Configs"
+  description = "Will be used to load inventory hw template configs"
   notes = ""
   datacenter = "LON"
 }
 
-data "dcloudtb_inventory_networks" "topology1_inventory_networks" {
+data "dcloudtb_inventory_hw_template_configs" "topology1_inventory_hw_template_configs" {
   topology_uid = dcloudtb_topology.test_topology.id
 }
 
-output "networks" {
-  value = data.dcloudtb_inventory_networks.topology1_inventory_networks
+output "scripts" {
+  value = data.dcloudtb_inventory_hw_template_configs.topology1_inventory_hw_template_configs
 }

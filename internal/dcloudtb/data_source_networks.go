@@ -17,40 +17,40 @@ func dataSourceNetworks() *schema.Resource {
 		ReadContext: dataSourceNetworksRead,
 
 		Schema: map[string]*schema.Schema{
-			"topology_uid": &schema.Schema{
+			"topology_uid": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"networks": &schema.Schema{
+			"networks": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"uid": &schema.Schema{
+						"uid": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"name": &schema.Schema{
+						"name": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"description": &schema.Schema{
+						"description": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"inventory_network_id": &schema.Schema{
+						"inventory_network_id": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"inventory_network_type": &schema.Schema{
+						"inventory_network_type": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"inventory_network_subnet": &schema.Schema{
+						"inventory_network_subnet": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"topology_uid": &schema.Schema{
+						"topology_uid": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},

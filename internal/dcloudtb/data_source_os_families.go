@@ -17,16 +17,16 @@ func dataSourceOsFamilies() *schema.Resource {
 		ReadContext: dataSourceOsFamiliesRead,
 
 		Schema: map[string]*schema.Schema{
-			"os_families": &schema.Schema{
+			"os_families": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"id": &schema.Schema{
+						"id": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"name": &schema.Schema{
+						"name": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
@@ -47,7 +47,7 @@ func dataSourceOsFamiliesRead(ctx context.Context, data *schema.ResourceData, m 
 
 	osFamilyResources := make([]map[string]interface{}, len(osFamilies))
 	for i, osFamily := range osFamilies {
-		osFamilyResources[i] = converOsFamilyToDataResource(osFamily)
+		osFamilyResources[i] = convertOsFamilyToDataResource(osFamily)
 	}
 
 	if err := data.Set("os_families", osFamilyResources); err != nil {
@@ -58,7 +58,7 @@ func dataSourceOsFamiliesRead(ctx context.Context, data *schema.ResourceData, m 
 	return diag.Diagnostics{}
 }
 
-func converOsFamilyToDataResource(osFamily tbclient.OsFamily) map[string]interface{} {
+func convertOsFamilyToDataResource(osFamily tbclient.OsFamily) map[string]interface{} {
 	resource := make(map[string]interface{})
 	resource["id"] = osFamily.Id
 	resource["name"] = osFamily.Name

@@ -26,13 +26,13 @@ func init() {
 func Provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"auth_token": &schema.Schema{
+			"auth_token": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("TB_AUTH_TOKEN", nil),
 				Sensitive:   true,
 			},
-			"tb_url": &schema.Schema{
+			"tb_url": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
@@ -42,13 +42,15 @@ func Provider() *schema.Provider {
 			},
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"dcloudtb_topologies":         dataSourceTopologies(),
-			"dcloudtb_inventory_networks": dataSourceInventoryNetworks(),
-			"dcloudtb_networks":           dataSourceNetworks(),
-			"dcloudtb_os_families":        dataSourceOsFamilies(),
-			"dcloudtb_nic_types":          dataSourceNicTypes(),
-			"dcloudtb_inventory_vms":      dataSourceInventoryVms(),
-			"dcloudtb_vms":                dataSourceVms(),
+			"dcloudtb_topologies":                    dataSourceTopologies(),
+			"dcloudtb_inventory_networks":            dataSourceInventoryNetworks(),
+			"dcloudtb_networks":                      dataSourceNetworks(),
+			"dcloudtb_os_families":                   dataSourceOsFamilies(),
+			"dcloudtb_nic_types":                     dataSourceNicTypes(),
+			"dcloudtb_inventory_vms":                 dataSourceInventoryVms(),
+			"dcloudtb_vms":                           dataSourceVms(),
+			"dcloudtb_inventory_hw_scripts":          dataSourceHwScripts(),
+			"dcloudtb_inventory_hw_template_configs": dataSourceHwTemplateConfigs(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloudtb_topology": resourceTopology(),

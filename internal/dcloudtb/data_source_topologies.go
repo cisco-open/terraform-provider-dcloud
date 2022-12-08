@@ -17,32 +17,32 @@ func dataSourceTopologies() *schema.Resource {
 		ReadContext: dataSourceTopologiesRead,
 
 		Schema: map[string]*schema.Schema{
-			"topologies": &schema.Schema{
+			"topologies": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"uid": &schema.Schema{
+						"uid": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"name": &schema.Schema{
+						"name": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"description": &schema.Schema{
+						"description": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"datacenter": &schema.Schema{
+						"datacenter": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"notes": &schema.Schema{
+						"notes": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"status": &schema.Schema{
+						"status": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},

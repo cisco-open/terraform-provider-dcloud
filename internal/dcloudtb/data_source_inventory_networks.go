@@ -17,24 +17,24 @@ func dataSourceInventoryNetworks() *schema.Resource {
 		ReadContext: dataSourceInventoryNetworksRead,
 
 		Schema: map[string]*schema.Schema{
-			"topology_uid": &schema.Schema{
+			"topology_uid": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"inventory_networks": &schema.Schema{
+			"inventory_networks": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"id": &schema.Schema{
+						"id": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"type": &schema.Schema{
+						"type": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"subnet": &schema.Schema{
+						"subnet": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},

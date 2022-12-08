@@ -299,5 +299,5 @@ gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C
 gopkg.in/yaml.v3 v3.0.0/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
-wwwin-github.cisco.com/pov-services/kapua-tb-go-client v0.0.9 h1:ETwWfJpgFZw6LsQcC8bhZlOBhzm2GdAbxDa1gUKtUW8=
-wwwin-github.cisco.com/pov-services/kapua-tb-go-client v0.0.9/go.mod h1:bNoUzcKYytt0IQRNqMwx6r8v6kctyKzQiSYqiQ3rWzM=
+wwwin-github.cisco.com/pov-services/kapua-tb-go-client v0.0.10 h1:X9TxEDH2Zc5ie5KfbdA7hMrExzDFlFjggG4apQXkqbM=
+wwwin-github.cisco.com/pov-services/kapua-tb-go-client v0.0.10/go.mod h1:bNoUzcKYytt0IQRNqMwx6r8v6kctyKzQiSYqiQ3rWzM=

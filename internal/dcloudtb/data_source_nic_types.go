@@ -17,16 +17,16 @@ func dataSourceNicTypes() *schema.Resource {
 		ReadContext: dataSourceNicTypesRead,
 
 		Schema: map[string]*schema.Schema{
-			"nic_types": &schema.Schema{
+			"nic_types": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"id": &schema.Schema{
+						"id": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"name": &schema.Schema{
+						"name": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
@@ -47,7 +47,7 @@ func dataSourceNicTypesRead(ctx context.Context, data *schema.ResourceData, m in
 
 	nicTypeResources := make([]map[string]interface{}, len(nicTypes))
 	for i, nicType := range nicTypes {
-		nicTypeResources[i] = converNicTypeToDataResource(nicType)
+		nicTypeResources[i] = convertNicTypeToDataResource(nicType)
 	}
 
 	if err := data.Set("nic_types", nicTypeResources); err != nil {
@@ -58,7 +58,7 @@ func dataSourceNicTypesRead(ctx context.Context, data *schema.ResourceData, m in
 	return diag.Diagnostics{}
 }
 
-func converNicTypeToDataResource(nicType tbclient.NicType) map[string]interface{} {
+func convertNicTypeToDataResource(nicType tbclient.NicType) map[string]interface{} {
 	resource := make(map[string]interface{})
 	resource["id"] = nicType.Id
 	resource["name"] = nicType.Name
