@@ -144,16 +144,16 @@ func convertInventoryVmToDataResource(inventoryVm tbclient.InventoryVm, topology
 	nics := make([]interface{}, len(inventoryVm.NetworkInterfaces))
 
 	for i, nic := range inventoryVm.NetworkInterfaces {
-		nicResoource := make(map[string]interface{})
+		nicResource := make(map[string]interface{})
 
-		nicResoource["inventory_network_id"] = nic.InventoryNetworkId
-		nicResoource["name"] = nic.Name
-		nicResoource["mac_address"] = nic.MacAddress
-		nicResoource["type"] = nic.Type
-		nicResoource["rdp_enabled"] = nic.RdpEnabled
-		nicResoource["ssh_enabled"] = nic.SshEnabled
+		nicResource["inventory_network_id"] = nic.InventoryNetworkId
+		nicResource["name"] = nic.Name
+		nicResource["mac_address"] = nic.MacAddress
+		nicResource["type"] = nic.Type
+		nicResource["rdp_enabled"] = nic.RdpEnabled
+		nicResource["ssh_enabled"] = nic.SshEnabled
 
-		nics[i] = nicResoource
+		nics[i] = nicResource
 	}
 	resource["network_interfaces"] = nics
 

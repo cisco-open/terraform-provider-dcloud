@@ -79,15 +79,15 @@ resource "dcloudtb_vm" "vm1" {
       password = "displaypassword"
     }
 
-#    internal_urls {
-#      location = "https://microsoft.com"
-#      description = "microsoft"
-#    }
-#
-#    internal_urls {
-#      location = "https://google.com"
-#      description = "google"
-#    }
+    internal_urls {
+      location = "https://microsoft.com"
+      description = "microsoft"
+    }
+
+    internal_urls {
+      location = "https://google.com"
+      description = "google"
+    }
   }
 
   guest_automation {
