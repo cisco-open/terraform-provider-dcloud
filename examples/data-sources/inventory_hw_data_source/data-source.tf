@@ -22,6 +22,6 @@ data "dcloudtb_inventory_hws" "test_topology_inventory_hws" {
   topology_uid = dcloudtb_topology.test_topology.id
 }
 
-output "vms" {
+output "hws" {
   value = data.dcloudtb_inventory_hws.test_topology_inventory_hws
 }

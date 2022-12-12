@@ -52,11 +52,13 @@ func Provider() *schema.Provider {
 			"dcloudtb_inventory_hw_scripts":          dataSourceHwScripts(),
 			"dcloudtb_inventory_hw_template_configs": dataSourceHwTemplateConfigs(),
 			"dcloudtb_inventory_hws":                 dataSourceInventoryHws(),
+			"dcloudtb_hws":                           dataSourceHws(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloudtb_topology": resourceTopology(),
 			"dcloudtb_network":  resourceNetwork(),
 			"dcloudtb_vm":       resourceVm(),
+			"dcloudtb_hw":       resourceHw(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}

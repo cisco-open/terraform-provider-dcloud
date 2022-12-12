@@ -38,7 +38,7 @@ resource "dcloudtb_vm" "vm1" {
   inventory_vm_id = "47161"
   topology_uid = dcloudtb_topology.test_topology.id
   name = "VM Created from Terraform"
-  description = "It's Alive"
+  description = "It's Alive https://yahoo.com"
   cpu_qty = 2
   memory_mb = 4096
   nested_hypervisor = false
