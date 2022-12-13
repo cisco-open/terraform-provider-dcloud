@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"strings"
 	"wwwin-github.cisco.com/pov-services/kapua-tb-go-client/tbclient"
 )
 
@@ -75,11 +74,7 @@ func resourceTopologyRead(ctx context.Context, data *schema.ResourceData, i inte
 
 	t, err := c.GetTopology(data.Id())
 	if err != nil {
-		ce := err.(*tbclient.ClientError)
-		if strings.Contains(ce.Status, "404") {
-			data.SetId("")
-		}
-		return diag.FromErr(err)
+		return handleClientError(err, data, diags)
 	}
 
 	data.Set("uid", t.Uid)
@@ -105,11 +100,8 @@ func resourceTopologyUpdate(ctx context.Context, data *schema.ResourceData, i in
 
 	_, err := c.UpdateTopology(topology)
 	if err != nil {
-		ce := err.(*tbclient.ClientError)
-		if strings.Contains(ce.Status, "404") {
-			data.SetId("")
-		}
-		return diag.FromErr(err)
+		var diags diag.Diagnostics
+		return handleClientError(err, data, diags)
 	}
 
 	return resourceTopologyRead(ctx, data, i)

@@ -6,7 +6,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"strings"
 	"wwwin-github.cisco.com/pov-services/kapua-tb-go-client/tbclient"
 )
 
@@ -104,11 +103,7 @@ func resourceHwRead(ctx context.Context, data *schema.ResourceData, i interface{
 
 	hw, err := c.GetHw(data.Id())
 	if err != nil {
-		ce := err.(*tbclient.ClientError)
-		if strings.Contains(ce.Status, "404") {
-			data.SetId("")
-		}
-		return diag.FromErr(err)
+		return handleClientError(err, data, diags)
 	}
 
 	data.Set("uid", hw.Uid)
@@ -165,7 +160,7 @@ func resourceHwUpdate(ctx context.Context, data *schema.ResourceData, i interfac
 	hw.Uid = data.Id()
 	updatedHw, err := c.UpdateHw(*hw)
 	if err != nil {
-		return diag.FromErr(err)
+		return handleClientError(err, data, diags)
 	}
 
 	data.SetId(updatedHw.Uid)
