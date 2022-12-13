@@ -35,66 +35,68 @@ resource "dcloudtb_network" "routed_network" {
 #}
 
 resource "dcloudtb_vm" "vm1" {
-  inventory_vm_id = "47161"
-  topology_uid = dcloudtb_topology.test_topology.id
-  name = "VM Created from Terraform"
-  description = "It's Alive https://yahoo.com"
-  cpu_qty = 2
-  memory_mb = 4096
+  inventory_vm_id   = "47161"
+  topology_uid      = dcloudtb_topology.test_topology.id
+  name              = "VM Created from Terraform"
+  description       = "It's Alive https://yahoo.com"
+  cpu_qty           = 2
+  memory_mb         = 4096
   nested_hypervisor = false
-  os_family = "LINUX"
+  os_family         = "LINUX"
 
   advanced_settings {
     all_disks_non_persistent = false
-    bios_uuid = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
-    name_in_hypervisor = "cmm"
-    not_started = false
+    bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
+    name_in_hypervisor       = "cmm"
+    not_started              = false
   }
 
   network_interfaces {
     network_uid = dcloudtb_network.routed_network.id
-    name = "Network adapter 0"
+    name        = "Network adapter 0"
     mac_address = "00:50:56:00:01:AA"
-    type = "VIRTUAL_E1000"
+    type        = "VIRTUAL_E1000"
   }
 
   network_interfaces {
-    network_uid = dcloudtb_network.routed_network.id
-    name = "Network adapter 1"
-    mac_address = "00:50:56:00:01:AB"
-    type = "VIRTUAL_E1000"
-    ip_address = "127.0.0.2"
-    ssh_enabled = true
-    rdp_enabled = true
+    network_uid    = dcloudtb_network.routed_network.id
+    name           = "Network adapter 1"
+    mac_address    = "00:50:56:00:01:AB"
+    type           = "VIRTUAL_E1000"
+    ip_address     = "127.0.0.2"
+    ssh_enabled    = true
+    rdp_enabled    = true
     rdp_auto_login = true
   }
 
   remote_access {
-    username = "user"
-    password = "password"
+    #    username = "user"
+    #    password = "password"
     vm_console_enabled = true
-
-    display_credentials {
-      username = "displayuser"
-      password = "displaypassword"
-    }
-
-    internal_urls {
-      location = "https://microsoft.com"
-      description = "microsoft"
-    }
-
-    internal_urls {
-      location = "https://google.com"
-      description = "google"
-    }
-  }
-
-  guest_automation {
-    command = "RUN PROGRAM"
-    delay_seconds = 10
   }
 }
+#
+#    display_credentials {
+#      username = "displayuser"
+#      password = "displaypassword"
+#    }
+#
+#    internal_urls {
+#      location = "https://microsoft.com"
+#      description = "microsoft"
+#    }
+#
+#    internal_urls {
+#      location = "https://google.com"
+#      description = "google"
+#    }
+#  }
+#
+#  guest_automation {
+#    command = "RUN PROGRAM"
+#    delay_seconds = 10
+#  }
+
 
 #resource "dcloudtb_vm" "vm2" {
 #  inventory_vm_id = "47161"

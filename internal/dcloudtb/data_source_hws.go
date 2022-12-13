@@ -119,9 +119,14 @@ func convertHwToDataResource(hw tbclient.Hw) map[string]interface{} {
 	resource["inventory_hw_id"] = hw.InventoryHardwareItem.Id
 	resource["uid"] = hw.Uid
 	resource["name"] = hw.Name
-	resource["power_control_enabled"] = hw.PowerControlEnabled
-	resource["hardware_console_enabled"] = hw.HardwareConsoleEnabled
 	resource["topology_uid"] = hw.Topology.Uid
+
+	if powerControlEnabled := hw.PowerControlEnabled; powerControlEnabled != nil {
+		resource["power_control_enabled"] = *powerControlEnabled
+	}
+	if hardwareConsoleEnabled := hw.HardwareConsoleEnabled; hardwareConsoleEnabled != nil {
+		resource["hardware_console_enabled"] = *hardwareConsoleEnabled
+	}
 
 	if startupScript := hw.StartupScript; startupScript != nil {
 		resource["startup_script_uid"] = startupScript.Uid

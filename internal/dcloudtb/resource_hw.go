@@ -3,6 +3,7 @@ package dcloudtb
 import (
 	"context"
 	"errors"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"strings"
@@ -113,9 +114,14 @@ func resourceHwRead(ctx context.Context, data *schema.ResourceData, i interface{
 	data.Set("uid", hw.Uid)
 	data.Set("inventory_hw_id", hw.InventoryHardwareItem.Id)
 	data.Set("name", hw.Name)
-	data.Set("power_control_enabled", hw.PowerControlEnabled)
-	data.Set("hardware_console_enabled", hw.HardwareConsoleEnabled)
 	data.Set("topology_uid", hw.Topology.Uid)
+
+	if powerControlEnabled := hw.PowerControlEnabled; powerControlEnabled != nil {
+		data.Set("power_control_enabled", powerControlEnabled)
+	}
+	if hardwareConsoleEnabled := hw.HardwareConsoleEnabled; hardwareConsoleEnabled != nil {
+		data.Set("hardware_console_enabled", hardwareConsoleEnabled)
+	}
 
 	if startupScript := hw.StartupScript; startupScript != nil {
 		data.Set("startup_script_uid", startupScript.Uid)
@@ -180,12 +186,28 @@ func resourceHwDelete(ctx context.Context, data *schema.ResourceData, i interfac
 
 func extractHw(data *schema.ResourceData, ctx context.Context, c *tbclient.Client) (*tbclient.Hw, error) {
 	hw := tbclient.Hw{
-		Name:                   data.Get("name").(string),
-		PowerControlEnabled:    data.Get("power_control_enabled").(bool),
-		HardwareConsoleEnabled: data.Get("hardware_console_enabled").(bool),
+		Name: data.Get("name").(string),
 		Topology: &tbclient.Topology{
 			Uid: data.Get("topology_uid").(string),
 		},
+	}
+
+	if powerControlEnabled, ok := data.GetOkExists("power_control_enabled"); ok {
+		tflog.Debug(ctx, "Got Power Control Enabled Value", map[string]interface{}{
+			"power_control_enabled": powerControlEnabled,
+		})
+
+		boolPowerControlEnabled := powerControlEnabled.(bool)
+		hw.PowerControlEnabled = &boolPowerControlEnabled
+	}
+
+	if hardwareConsoleEnabled, ok := data.GetOkExists("hardware_console_enabled"); ok {
+		tflog.Debug(ctx, "Got Hardware Console Enabled Value", map[string]interface{}{
+			"hardware_console_enabled": hardwareConsoleEnabled,
+		})
+
+		boolHardwareConsoleEnabled := hardwareConsoleEnabled.(bool)
+		hw.HardwareConsoleEnabled = &boolHardwareConsoleEnabled
 	}
 
 	inventoryHwId := data.Get("inventory_hw_id")
@@ -247,5 +269,10 @@ func extractHw(data *schema.ResourceData, ctx context.Context, c *tbclient.Clien
 		nics[i] = n
 	}
 	hw.NetworkInterfaces = nics
+
+	tflog.Debug(ctx, "Ready to Send HW Item", map[string]interface{}{
+		"hw": hw,
+	})
+
 	return &hw, nil
 }

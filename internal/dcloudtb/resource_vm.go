@@ -272,16 +272,20 @@ func resourceVmDelete(ctx context.Context, data *schema.ResourceData, i interfac
 
 func extractVm(data *schema.ResourceData, ctx context.Context) tbclient.Vm {
 	vm := tbclient.Vm{
-		InventoryVmId:    data.Get("inventory_vm_id").(string),
-		Name:             data.Get("name").(string),
-		Description:      data.Get("description").(string),
-		MemoryMb:         uint64(data.Get("memory_mb").(int)),
-		CpuQty:           uint64(data.Get("cpu_qty").(int)),
-		NestedHypervisor: data.Get("nested_hypervisor").(bool),
-		OsFamily:         data.Get("os_family").(string),
+		InventoryVmId: data.Get("inventory_vm_id").(string),
+		Name:          data.Get("name").(string),
+		Description:   data.Get("description").(string),
+		MemoryMb:      uint64(data.Get("memory_mb").(int)),
+		CpuQty:        uint64(data.Get("cpu_qty").(int)),
+		OsFamily:      data.Get("os_family").(string),
 		Topology: &tbclient.Topology{
 			Uid: data.Get("topology_uid").(string),
 		},
+	}
+
+	if nestedHypervisor, ok := data.GetOkExists("nested_hypervisor"); ok {
+		boolNestedHypervisor := nestedHypervisor.(bool)
+		vm.NestedHypervisor = &boolNestedHypervisor
 	}
 
 	if advancedSettings := data.Get("advanced_settings"); advancedSettings != nil && (len(advancedSettings.([]interface{})) > 0) {
