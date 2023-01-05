@@ -10,7 +10,7 @@ import (
 )
 
 func dataSourceInventoryVms() *schema.Resource {
-
+	// TODO - add IP Address field to Nic
 	return &schema.Resource{
 		Description: "All the inventory VMs available to be used in a topology",
 
@@ -72,6 +72,10 @@ func dataSourceInventoryVms() *schema.Resource {
 										Computed: true,
 									},
 									"name": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"ip_address": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -148,6 +152,7 @@ func convertInventoryVmToDataResource(inventoryVm tbclient.InventoryVm, topology
 
 		nicResource["inventory_network_id"] = nic.InventoryNetworkId
 		nicResource["name"] = nic.Name
+		nicResource["ip_address"] = nic.IpAddress
 		nicResource["mac_address"] = nic.MacAddress
 		nicResource["type"] = nic.Type
 		nicResource["rdp_enabled"] = nic.RdpEnabled

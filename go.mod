@@ -1,4 +1,4 @@
-module github.com/hashicorp/terraform-provider-scaffolding
+module wwwin-github.cisco.com/pov-services/terraform-provider-dcloudtb
 
 go 1.18
 
@@ -6,7 +6,7 @@ require (
 	github.com/hashicorp/terraform-plugin-docs v0.13.0
 	github.com/hashicorp/terraform-plugin-log v0.7.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.24.1
-	wwwin-github.cisco.com/pov-services/kapua-tb-go-client v0.0.13
+	wwwin-github.cisco.com/pov-services/kapua-tb-go-client v0.0.14
 )
 
 require (

@@ -33,8 +33,6 @@ resource "dcloudtb_network" "unrouted_network" {
   topology_uid         = dcloudtb_topology.test_topology.id
 }
 
-//6047938
-
 resource "dcloudtb_vm" "vm1" {
   inventory_vm_id   = "6047938"
   topology_uid      = dcloudtb_topology.test_topology.id
@@ -121,7 +119,7 @@ resource "dcloudtb_hw" "hw1" {
   topology_uid               = dcloudtb_topology.test_topology.id
   inventory_hw_id            = "170"
   name                       = "CX Core2 Device"
-  hardware_console_enabled   = false
+  hardware_console_enabled   = true
   power_control_enabled      = false
   startup_script_uid         = "bjlfkxev55nh35eh6kku13971"
   custom_script_uid          = "668eljku7jwpk8bpysz5njyrz"

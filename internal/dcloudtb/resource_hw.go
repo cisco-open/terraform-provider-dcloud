@@ -58,6 +58,10 @@ func resourceHw() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
+						"uid": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"network_interface_id": {
 							Type:     schema.TypeString,
 							Required: true,
@@ -138,6 +142,7 @@ func resourceHwRead(ctx context.Context, data *schema.ResourceData, i interface{
 	for i, nic := range hw.NetworkInterfaces {
 		nicResource := make(map[string]interface{})
 
+		nicResource["uid"] = nic.Uid
 		nicResource["network_interface_id"] = nic.NetworkInterface.Id
 		nicResource["network_uid"] = nic.Network.Uid
 
