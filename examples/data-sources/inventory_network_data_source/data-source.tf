@@ -12,10 +12,10 @@ provider "dcloudtb" {
 }
 
 resource "dcloudtb_topology" "test_topology" {
-  name = "Test Topology For Testing Inventory Networks"
+  name        = "Test Topology For Testing Inventory Networks"
   description = "Will be used to load inventory networks"
-  notes = ""
-  datacenter = "LON"
+  notes       = ""
+  datacenter  = "LON"
 }
 
 data "dcloudtb_inventory_networks" "topology1_inventory_networks" {

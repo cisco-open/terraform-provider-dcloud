@@ -9,7 +9,6 @@ terraform {
 
 provider "dcloudtb" {
   tb_url = "https://tbv3-dev.dev.ciscodcloud.com/api"
-  debug = true
 }
 
 resource "dcloudtb_topology" "test_topology" {
@@ -133,7 +132,7 @@ resource "dcloudtb_hw" "hw1" {
 }
 
 resource "dcloudtb_hw" "hw2" {
-  topology_uid             = dcloudtb_topology.test_topology.id
-  inventory_hw_id          = "26"
-  name                     = "WLAN Controller"
+  topology_uid    = dcloudtb_topology.test_topology.id
+  inventory_hw_id = "26"
+  name            = "WLAN Controller"
 }

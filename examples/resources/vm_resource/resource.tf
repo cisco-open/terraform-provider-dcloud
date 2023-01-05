@@ -7,23 +7,22 @@ terraform {
   }
 }
 
-  provider "dcloudtb" {
-    tb_url = "https://tbv3-dev.dev.ciscodcloud.com/api"
-    debug = true
-  }
+provider "dcloudtb" {
+  tb_url = "https://tbv3-dev.dev.ciscodcloud.com/api"
+}
 
 resource "dcloudtb_topology" "test_topology" {
-  name = "VM Resource Test"
+  name        = "VM Resource Test"
   description = "Testing Topology VM Resource Management"
-  notes = "Created via Terraform Test"
-  datacenter = "LON"
+  notes       = "Created via Terraform Test"
+  datacenter  = "LON"
 }
 
 resource "dcloudtb_network" "routed_network" {
-  name = "A routed network"
-  description = "A Network to attach VMs"
+  name                 = "A routed network"
+  description          = "A Network to attach VMs"
   inventory_network_id = "L3-VLAN-2"
-  topology_uid = dcloudtb_topology.test_topology.id
+  topology_uid         = dcloudtb_topology.test_topology.id
 }
 
 #data "dcloudtb_inventory_vms" "test_topology_inventory_vms" {

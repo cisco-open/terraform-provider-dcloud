@@ -12,10 +12,10 @@ provider "dcloudtb" {
 }
 
 resource "dcloudtb_topology" "test_topology" {
-  name = "Test Topology For Testing Networks"
+  name        = "Test Topology For Testing Networks"
   description = "Will be used to load networks"
-  notes = ""
-  datacenter = "LON"
+  notes       = ""
+  datacenter  = "LON"
 }
 
 data "dcloudtb_networks" "topology1_networks" {
