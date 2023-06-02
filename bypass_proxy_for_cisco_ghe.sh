@@ -1,1 +1,0 @@
-go env -w GOPRIVATE=wwwin-github.cisco.com/pov-services

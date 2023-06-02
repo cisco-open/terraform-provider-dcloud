@@ -2,12 +2,12 @@ package dcloudtb
 
 import (
 	"context"
+	"github.com/cisco-open/kapua-tb-go-client/tbclient"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"sort"
 	"strconv"
 	"time"
-	"wwwin-github.cisco.com/pov-services/kapua-tb-go-client/tbclient"
 )
 
 func dataSourceVms() *schema.Resource {

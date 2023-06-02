@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
+	"github.com/cisco-open/terraform-provider-dcloudtb/internal/dcloudtb"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"wwwin-github.cisco.com/pov-services/terraform-provider-dcloudtb/internal/dcloudtb"
 )
 
 // Run "go generate" to format example terraform files and generate the docs for the registry/website
