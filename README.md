@@ -39,3 +39,9 @@ In order to run the full suite of Acceptance tests, run `make testacc`.
 ```sh
 $ make testacc
 ```
+
+## Dependencies
+
+The provider makes extensive use of the dCloud Topology Builder Go Client (https://github.com/cisco-open/kapua-tb-go-client).
+
+Before adding new resource types to the provider the dCloud Topology Builder Go Client should be updated to expose the required resources and released.
