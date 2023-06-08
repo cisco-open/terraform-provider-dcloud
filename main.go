@@ -10,7 +10,7 @@ package main
 
 import (
 	"flag"
-	"github.com/cisco-open/terraform-provider-dcloudtb/internal/dcloudtb"
+	"github.com/cisco-open/dcloud-tb-terraform/internal/dcloudtb"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
 )
