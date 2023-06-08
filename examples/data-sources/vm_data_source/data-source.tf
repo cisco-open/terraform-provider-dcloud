@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "dcloudtb" {
-  tb_url = "https://tbv3-dev.dev.ciscodcloud.com/api"
+  tb_url = "https://tbv3-production.ciscodcloud.com/api"
 }
 
 data "dcloudtb_vms" "test_topology_vms" {

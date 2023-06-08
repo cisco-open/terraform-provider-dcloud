@@ -17,7 +17,7 @@ Please note that all interactions within the project are subject to our [Code of
 
 ## Reporting Issues
 
-Before reporting a new issue, please search our [issues list](https://github.com/cisco-open/kapua-tb-go-client/issues) to ensure that it hasn't already been reported or fixed.
+Before reporting a new issue, please search our [issues list](https://github.com/cisco-open/dcloud-tb-go-client/issues) to ensure that it hasn't already been reported or fixed.
 
 When creating a new issue, include a clear title, a detailed description, relevant information, and if possible, a test case.
 
@@ -29,8 +29,8 @@ When creating a new issue, include a clear title, a detailed description, releva
 
 To set up your development environment for the dCloud Terraform Provider, follow the instructions below:
 
-1. Clone the repository: `git clone https://github.com/cisco-open/terraform-provider-dcloudtb.git`
-2. Navigate to the project directory: `terraform-provider-dcloudtb`
+1. Clone the repository: `git clone https://github.com/cisco-open/dcloud-tb-terraform.git`
+2. Navigate to the project directory: `dcloud-tb-terraform`
 3. Install the necessary dependencies: https://go.dev/doc/install, https://developer.hashicorp.com/terraform
 
 ### Building the dCloud Terraform Provider
