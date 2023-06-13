@@ -31,11 +31,3 @@ resource "dcloudtb_network" "unrouted_network" {
   inventory_network_id = "L2-VLAN-16"
   topology_uid         = dcloudtb_topology.test_topology.id
 }
-
-#data "dcloudtb_networks" "test_topology_networks" {
-#  topology_uid = dcloudtb_topology.test_topology.id
-#}
-#
-#output "topology_networks" {
-#  value = data.dcloudtb_networks.test_topology_networks
-#}

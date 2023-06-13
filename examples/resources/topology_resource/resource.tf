@@ -31,7 +31,3 @@ resource "dcloudtb_topology" "tb3" {
   notes       = "This is a much better note"
   datacenter  = "SNG"
 }
-
-#output "hugh_topology" {
-#  value = dcloudtb_topology.hughtopology
-#}
