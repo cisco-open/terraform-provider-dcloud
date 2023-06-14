@@ -18,6 +18,13 @@ resource "dcloudtb_topology" "test_topology" {
   datacenter  = "LON"
 }
 
+resource "dcloudtb_network" "routed_network" {
+  name                 = "A routed network"
+  description          = "Demonstrating a network routed through VPOD Gateway"
+  inventory_network_id = "L3-VLAN-2"
+  topology_uid         = dcloudtb_topology.test_topology.id
+}
+
 data "dcloudtb_networks" "topology1_networks" {
   topology_uid = dcloudtb_topology.test_topology.id
 }

@@ -33,7 +33,7 @@ resource "dcloudtb_network" "unrouted_network" {
 }
 
 resource "dcloudtb_vm" "vm1" {
-  inventory_vm_id   = "6047938"
+  inventory_vm_id   = "7668085"
   topology_uid      = dcloudtb_topology.test_topology.id
   name              = "Ubuntu Desktop 1"
   description       = "A standard Ubuntu Desktop VM"
@@ -85,7 +85,7 @@ resource "dcloudtb_vm" "vm1" {
 }
 
 resource "dcloudtb_vm" "vm2" {
-  inventory_vm_id   = "6047938"
+  inventory_vm_id   = "7668085"
   topology_uid      = dcloudtb_topology.test_topology.id
   name              = "Ubuntu Desktop 2"
   description       = "A standard Ubuntu Desktop VM"
@@ -116,10 +116,9 @@ resource "dcloudtb_vm" "vm2" {
 
 resource "dcloudtb_hw" "hw1" {
   topology_uid               = dcloudtb_topology.test_topology.id
-  inventory_hw_id            = "170"
-  name                       = "CX Core2 Device"
-  hardware_console_enabled   = true
-  power_control_enabled      = false
+  inventory_hw_id            = "76"
+  name                       = "IE 4000 Device"
+  hardware_console_enabled   = false
   startup_script_uid         = "bjlfkxev55nh35eh6kku13971"
   custom_script_uid          = "668eljku7jwpk8bpysz5njyrz"
   shutdown_script_uid        = "435ya6tjh5u4uv3ku2kphesr"
@@ -127,12 +126,12 @@ resource "dcloudtb_hw" "hw1" {
 
   network_interfaces {
     network_interface_id = "GigabitEthernet1/0/24"
-    network_uid          = dcloudtb_network.unrouted_network.id
+    network_uid          = dcloudtb_network.routed_network.id
   }
 }
 
 resource "dcloudtb_hw" "hw2" {
   topology_uid    = dcloudtb_topology.test_topology.id
-  inventory_hw_id = "26"
-  name            = "WLAN Controller"
+  inventory_hw_id = "14"
+  name            = "UCS Hardware Pod"
 }

@@ -25,36 +25,11 @@ resource "dcloudtb_network" "routed_network" {
   topology_uid         = dcloudtb_topology.test_topology.id
 }
 
-#data "dcloudtb_inventory_hws" "test_topology_inventory_hws" {
-#  topology_uid = dcloudtb_topology.test_topology.id
-#}
-#
-#output "hws" {
-#  value = data.dcloudtb_inventory_hws.test_topology_inventory_hws
-#}
-
-#data "dcloudtb_inventory_hw_scripts" "test_topology_inventory_hw_scripts" {
-#  topology_uid = dcloudtb_topology.test_topology.id
-#}
-#
-#output "scripts" {
-#  value = data.dcloudtb_inventory_hw_scripts.topology1_inventory_hw_scripts
-#}
-
-#data "dcloudtb_inventory_hw_template_configs" "test_topology_inventory_hw_template_configs" {
-#  topology_uid = dcloudtb_topology.test_topology.id
-#}
-#
-#output "configs" {
-#  value = data.dcloudtb_inventory_hw_template_configs.test_topology_inventory_hw_template_configs
-#}
-
-resource "dcloudtb_hw" "cx_core2" {
+resource "dcloudtb_hw" "IE4000" {
   topology_uid               = dcloudtb_topology.test_topology.id
-  inventory_hw_id            = "170"
-  name                       = "CX Core2 Device"
-  hardware_console_enabled   = true
-  power_control_enabled      = false
+  inventory_hw_id            = "76"
+  name                       = "IE 4000 Device"
+  hardware_console_enabled   = false
   startup_script_uid         = "bjlfkxev55nh35eh6kku13971"
   custom_script_uid          = "668eljku7jwpk8bpysz5njyrz"
   shutdown_script_uid        = "435ya6tjh5u4uv3ku2kphesr"
@@ -65,11 +40,3 @@ resource "dcloudtb_hw" "cx_core2" {
     network_uid          = dcloudtb_network.routed_network.id
   }
 }
-
-#data "dcloudtb_hws" "test_topology_hws" {
-#  topology_uid = dcloudtb_topology.test_topology.id
-#}
-#
-#output "topology_hws" {
-#  value = data.dcloudtb_hws.test_topology_hws
-#}
