@@ -50,10 +50,10 @@ resource "dcloudtb_vm" "vm1" {
   }
 
   remote_access {
-      username = "user"
-      password = "password"
-      vm_console_enabled = true
-    }
+    username           = "user"
+    password           = "password"
+    vm_console_enabled = true
+  }
 }
 
 data "dcloudtb_vms" "test_topology_vms" {

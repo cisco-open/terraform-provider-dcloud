@@ -19,10 +19,10 @@ resource "dcloudtb_topology" "test_topology" {
 }
 
 resource "dcloudtb_hw" "IE4000" {
-  topology_uid               = dcloudtb_topology.test_topology.id
-  inventory_hw_id            = "76"
-  name                       = "IE 4000 Device"
-  hardware_console_enabled   = false
+  topology_uid             = dcloudtb_topology.test_topology.id
+  inventory_hw_id          = "76"
+  name                     = "IE 4000 Device"
+  hardware_console_enabled = false
 }
 
 data "dcloudtb_hws" "test_topology_hws" {

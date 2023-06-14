@@ -61,17 +61,17 @@ resource "dcloudtb_vm" "vm1" {
   }
 
   remote_access {
-    username = "user"
-    password = "password"
+    username           = "user"
+    password           = "password"
     vm_console_enabled = true
 
     internal_urls {
-      location = "https://cisco.com"
+      location    = "https://cisco.com"
       description = "cisco"
     }
 
     internal_urls {
-      location = "https://ciscodcloud.com"
+      location    = "https://ciscodcloud.com"
       description = "dCloud"
     }
 
@@ -82,36 +82,36 @@ resource "dcloudtb_vm" "vm1" {
   }
 
   guest_automation {
-    command = "RUN PROGRAM"
+    command       = "RUN PROGRAM"
     delay_seconds = 10
   }
 }
 
 resource "dcloudtb_vm" "vm2" {
- inventory_vm_id = "7182268"
- topology_uid = dcloudtb_topology.test_topology.id
- name = "2nd VM Created from Terraform"
- description = "It's Alive"
- cpu_qty = 1
- memory_mb = 3072
- nested_hypervisor = false
- os_family = "WINDOWS"
+  inventory_vm_id   = "7182268"
+  topology_uid      = dcloudtb_topology.test_topology.id
+  name              = "2nd VM Created from Terraform"
+  description       = "It's Alive"
+  cpu_qty           = 1
+  memory_mb         = 3072
+  nested_hypervisor = false
+  os_family         = "WINDOWS"
 
- advanced_settings {
-   all_disks_non_persistent = false
-   bios_uuid = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 bb"
-   name_in_hypervisor = "computer"
-   not_started = false
- }
+  advanced_settings {
+    all_disks_non_persistent = false
+    bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 bb"
+    name_in_hypervisor       = "computer"
+    not_started              = false
+  }
 
- network_interfaces {
-   network_uid = dcloudtb_network.routed_network.id
-   name = "Network adapter 0"
-   mac_address = "00:50:56:00:02:AA"
-   type = "VIRTUAL_E1000"
- }
+  network_interfaces {
+    network_uid = dcloudtb_network.routed_network.id
+    name        = "Network adapter 0"
+    mac_address = "00:50:56:00:02:AA"
+    type        = "VIRTUAL_E1000"
+  }
 
- remote_access {
-   vm_console_enabled = false
- }
+  remote_access {
+    vm_console_enabled = false
+  }
 }
