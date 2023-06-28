@@ -29,8 +29,8 @@ When creating a new issue, include a clear title, a detailed description, releva
 
 To set up your development environment for the dCloud Terraform Provider, follow the instructions below:
 
-1. Clone the repository: `git clone https://github.com/cisco-open/dcloud-tb-terraform.git`
-2. Navigate to the project directory: `dcloud-tb-terraform`
+1. Clone the repository: `git clone https://github.com/cisco-open/terraform-provider-dcloud.git`
+2. Navigate to the project directory: `terraform-provider-dcloud`
 3. Install the necessary dependencies: https://go.dev/doc/install, https://developer.hashicorp.com/terraform
 
 ### Building the dCloud Terraform Provider

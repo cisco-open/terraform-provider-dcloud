@@ -81,7 +81,7 @@ func providerConfigure(ctx context.Context, data *schema.ResourceData) (interfac
 
 	c := tbclient.NewClient(&url, &authToken)
 	c.Debug = debug
-	c.UserAgent = "dcloud-tb-terraform/v0.0.1" // TODO - replace with actual application version, if possible
+	c.UserAgent = "terraform-provider-dcloud/v0.0.1" // TODO - replace with actual application version, if possible
 
 	return c, diags
 }

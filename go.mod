@@ -1,4 +1,4 @@
-module github.com/cisco-open/dcloud-tb-terraform
+module github.com/cisco-open/terraform-provider-dcloud
 
 go 1.18
 
