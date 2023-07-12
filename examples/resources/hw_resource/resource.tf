@@ -1,32 +1,32 @@
 terraform {
   required_providers {
-    dcloudtb = {
+    dcloud = {
       version = "0.1"
-      source  = "cisco.com/dcloud/dcloudtb"
+      source  = "cisco-open/dcloud"
     }
   }
 }
 
-provider "dcloudtb" {
+provider "dcloud" {
   tb_url = "https://tbv3-production.ciscodcloud.com/api"
 }
 
-resource "dcloudtb_topology" "test_topology" {
+resource "dcloud_topology" "test_topology" {
   name        = "HW Resource Test"
   description = "Testing Topology HW Resource Management"
   notes       = "Created via Terraform Test"
   datacenter  = "LON"
 }
 
-resource "dcloudtb_network" "routed_network" {
+resource "dcloud_network" "routed_network" {
   name                 = "A routed network"
   description          = "Demonstrating a network routed through VPOD Gateway"
   inventory_network_id = "L3-VLAN-2"
-  topology_uid         = dcloudtb_topology.test_topology.id
+  topology_uid         = dcloud_topology.test_topology.id
 }
 
-resource "dcloudtb_hw" "IE4000" {
-  topology_uid               = dcloudtb_topology.test_topology.id
+resource "dcloud_hw" "IE4000" {
+  topology_uid               = dcloud_topology.test_topology.id
   inventory_hw_id            = "76"
   name                       = "IE 4000 Device"
   hardware_console_enabled   = false
@@ -37,6 +37,6 @@ resource "dcloudtb_hw" "IE4000" {
 
   network_interfaces {
     network_interface_id = "GigabitEthernet1/0/24"
-    network_uid          = dcloudtb_network.routed_network.id
+    network_uid          = dcloud_network.routed_network.id
   }
 }

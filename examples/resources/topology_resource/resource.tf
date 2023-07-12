@@ -1,31 +1,31 @@
 terraform {
   required_providers {
-    dcloudtb = {
+    dcloud = {
       version = "0.1"
-      source  = "cisco.com/dcloud/dcloudtb"
+      source  = "cisco-open/dcloud"
     }
   }
 }
 
-provider "dcloudtb" {
+provider "dcloud" {
   tb_url = "https://tbv3-production.ciscodcloud.com/api"
 }
 
-resource "dcloudtb_topology" "tb1" {
+resource "dcloud_topology" "tb1" {
   name        = "My First Terraformed Topology"
   description = "The first, and maybe the best"
   notes       = "This is a much better note"
   datacenter  = "LON"
 }
 
-resource "dcloudtb_topology" "tb2" {
+resource "dcloud_topology" "tb2" {
   name        = "My Second Terraformed Topology"
   description = "The second, it's still pretty ok"
   notes       = "This is a much better note"
   datacenter  = "RTP"
 }
 
-resource "dcloudtb_topology" "tb3" {
+resource "dcloud_topology" "tb3" {
   name        = "My Third Terraformed Topology"
   description = "The third, sure it's grand"
   notes       = "This is a much better note"

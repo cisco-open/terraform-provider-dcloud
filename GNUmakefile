@@ -1,7 +1,7 @@
 TEST?=$$(go list ./... | grep -v 'vendor')
 HOSTNAME=cisco.com
-NAMESPACE=dcloud
-NAME=dcloudtb
+NAMESPACE=cisco-open
+NAME=dcloud
 BINARY=terraform-provider-${NAME}
 VERSION=0.1
 OS_ARCH=darwin_amd64
