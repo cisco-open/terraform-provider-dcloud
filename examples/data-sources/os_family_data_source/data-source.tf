@@ -1,18 +1,18 @@
 terraform {
   required_providers {
-    dcloudtb = {
+    dcloud = {
       version = "0.1"
-      source  = "cisco.com/dcloud/dcloudtb"
+      source  = "cisco-open/dcloud"
     }
   }
 }
 
-provider "dcloudtb" {
+provider "dcloud" {
   tb_url = "https://tbv3-production.ciscodcloud.com/api"
 }
 
-data "dcloudtb_os_families" "os_families" {}
+data "dcloud_os_families" "os_families" {}
 
 output "os_families" {
-  value = data.dcloudtb_os_families.os_families
+  value = data.dcloud_os_families.os_families
 }

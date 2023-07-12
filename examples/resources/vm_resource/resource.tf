@@ -1,33 +1,33 @@
 terraform {
   required_providers {
-    dcloudtb = {
+    dcloud = {
       version = "0.1"
-      source  = "cisco.com/dcloud/dcloudtb"
+      source  = "cisco-open/dcloud"
     }
   }
 }
 
-provider "dcloudtb" {
+provider "dcloud" {
   tb_url = "https://tbv3-production.ciscodcloud.com/api"
 }
 
-resource "dcloudtb_topology" "test_topology" {
+resource "dcloud_topology" "test_topology" {
   name        = "VM Resource Test"
   description = "Testing Topology VM Resource Management"
   notes       = "Created via Terraform Test"
   datacenter  = "LON"
 }
 
-resource "dcloudtb_network" "routed_network" {
+resource "dcloud_network" "routed_network" {
   name                 = "A routed network"
   description          = "A Network to attach VMs"
   inventory_network_id = "L3-VLAN-2"
-  topology_uid         = dcloudtb_topology.test_topology.id
+  topology_uid         = dcloud_topology.test_topology.id
 }
 
-resource "dcloudtb_vm" "vm1" {
+resource "dcloud_vm" "vm1" {
   inventory_vm_id   = "7048155"
-  topology_uid      = dcloudtb_topology.test_topology.id
+  topology_uid      = dcloud_topology.test_topology.id
   name              = "VM Created from Terraform"
   description       = "It's Alive"
   cpu_qty           = 2
@@ -43,14 +43,14 @@ resource "dcloudtb_vm" "vm1" {
   }
 
   network_interfaces {
-    network_uid = dcloudtb_network.routed_network.id
+    network_uid = dcloud_network.routed_network.id
     name        = "Network adapter 0"
     mac_address = "00:50:56:00:01:AA"
     type        = "VIRTUAL_E1000"
   }
 
   network_interfaces {
-    network_uid    = dcloudtb_network.routed_network.id
+    network_uid    = dcloud_network.routed_network.id
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:01:AB"
     type           = "VIRTUAL_E1000"
@@ -87,9 +87,9 @@ resource "dcloudtb_vm" "vm1" {
   }
 }
 
-resource "dcloudtb_vm" "vm2" {
+resource "dcloud_vm" "vm2" {
   inventory_vm_id   = "7182268"
-  topology_uid      = dcloudtb_topology.test_topology.id
+  topology_uid      = dcloud_topology.test_topology.id
   name              = "2nd VM Created from Terraform"
   description       = "It's Alive"
   cpu_qty           = 1
@@ -105,7 +105,7 @@ resource "dcloudtb_vm" "vm2" {
   }
 
   network_interfaces {
-    network_uid = dcloudtb_network.routed_network.id
+    network_uid = dcloud_network.routed_network.id
     name        = "Network adapter 0"
     mac_address = "00:50:56:00:02:AA"
     type        = "VIRTUAL_E1000"

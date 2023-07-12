@@ -1,27 +1,27 @@
 terraform {
   required_providers {
-    dcloudtb = {
+    dcloud = {
       version = "0.1"
-      source  = "cisco.com/dcloud/dcloudtb"
+      source  = "cisco-open/dcloud"
     }
   }
 }
 
-provider "dcloudtb" {
+provider "dcloud" {
   tb_url = "https://tbv3-production.ciscodcloud.com/api"
 }
 
-resource "dcloudtb_topology" "test_topology" {
+resource "dcloud_topology" "test_topology" {
   name        = "Test Topology For Testing Inventory Networks"
   description = "Will be used to load inventory networks"
   notes       = ""
   datacenter  = "LON"
 }
 
-data "dcloudtb_inventory_networks" "topology1_inventory_networks" {
-  topology_uid = dcloudtb_topology.test_topology.id
+data "dcloud_inventory_networks" "topology1_inventory_networks" {
+  topology_uid = dcloud_topology.test_topology.id
 }
 
 output "networks" {
-  value = data.dcloudtb_inventory_networks.topology1_inventory_networks
+  value = data.dcloud_inventory_networks.topology1_inventory_networks
 }

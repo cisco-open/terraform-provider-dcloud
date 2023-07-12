@@ -1,40 +1,40 @@
 terraform {
   required_providers {
-    dcloudtb = {
+    dcloud = {
       version = "0.1"
-      source  = "cisco.com/dcloud/dcloudtb"
+      source  = "cisco-open/dcloud"
     }
   }
 }
 
-provider "dcloudtb" {
+provider "dcloud" {
   tb_url = "https://tbv3-production.ciscodcloud.com/api"
 }
 
-resource "dcloudtb_topology" "test_topology" {
+resource "dcloud_topology" "test_topology" {
   name        = "My Terraformed Topology"
   description = "A topology created from terraform"
   notes       = "Programmatic clients rule!"
   datacenter  = "LON"
 }
 
-resource "dcloudtb_network" "routed_network" {
+resource "dcloud_network" "routed_network" {
   name                 = "A routed network"
   description          = "Demonstrating a network routed through VPOD Gateway"
   inventory_network_id = "L3-VLAN-2"
-  topology_uid         = dcloudtb_topology.test_topology.id
+  topology_uid         = dcloud_topology.test_topology.id
 }
 
-resource "dcloudtb_network" "unrouted_network" {
+resource "dcloud_network" "unrouted_network" {
   name                 = "An unrouted network"
   description          = "Demonstrating a network not routed through VPOD Gateway"
   inventory_network_id = "L2-VLAN-16"
-  topology_uid         = dcloudtb_topology.test_topology.id
+  topology_uid         = dcloud_topology.test_topology.id
 }
 
-resource "dcloudtb_vm" "vm1" {
+resource "dcloud_vm" "vm1" {
   inventory_vm_id   = "7668085"
-  topology_uid      = dcloudtb_topology.test_topology.id
+  topology_uid      = dcloud_topology.test_topology.id
   name              = "Ubuntu Desktop 1"
   description       = "A standard Ubuntu Desktop VM"
   cpu_qty           = 8
@@ -50,14 +50,14 @@ resource "dcloudtb_vm" "vm1" {
   }
 
   network_interfaces {
-    network_uid = dcloudtb_network.routed_network.id
+    network_uid = dcloud_network.routed_network.id
     name        = "Network adapter 0"
     mac_address = "00:50:56:00:01:AA"
     type        = "VIRTUAL_E1000"
   }
 
   network_interfaces {
-    network_uid    = dcloudtb_network.unrouted_network.id
+    network_uid    = dcloud_network.unrouted_network.id
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:01:AB"
     type           = "VIRTUAL_E1000"
@@ -84,9 +84,9 @@ resource "dcloudtb_vm" "vm1" {
   }
 }
 
-resource "dcloudtb_vm" "vm2" {
+resource "dcloud_vm" "vm2" {
   inventory_vm_id   = "7668085"
-  topology_uid      = dcloudtb_topology.test_topology.id
+  topology_uid      = dcloud_topology.test_topology.id
   name              = "Ubuntu Desktop 2"
   description       = "A standard Ubuntu Desktop VM"
   cpu_qty           = 4
@@ -106,7 +106,7 @@ resource "dcloudtb_vm" "vm2" {
   }
 
   network_interfaces {
-    network_uid = dcloudtb_network.routed_network.id
+    network_uid = dcloud_network.routed_network.id
     name        = "Network adapter 0"
     mac_address = "00:50:56:00:01:AF"
     type        = "VIRTUAL_E1000"
@@ -114,8 +114,8 @@ resource "dcloudtb_vm" "vm2" {
 }
 
 
-resource "dcloudtb_hw" "hw1" {
-  topology_uid               = dcloudtb_topology.test_topology.id
+resource "dcloud_hw" "hw1" {
+  topology_uid               = dcloud_topology.test_topology.id
   inventory_hw_id            = "76"
   name                       = "IE 4000 Device"
   hardware_console_enabled   = false
@@ -126,12 +126,12 @@ resource "dcloudtb_hw" "hw1" {
 
   network_interfaces {
     network_interface_id = "GigabitEthernet1/0/24"
-    network_uid          = dcloudtb_network.routed_network.id
+    network_uid          = dcloud_network.routed_network.id
   }
 }
 
-resource "dcloudtb_hw" "hw2" {
-  topology_uid    = dcloudtb_topology.test_topology.id
+resource "dcloud_hw" "hw2" {
+  topology_uid    = dcloud_topology.test_topology.id
   inventory_hw_id = "14"
   name            = "UCS Hardware Pod"
 }

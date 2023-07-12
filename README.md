@@ -40,6 +40,36 @@ In order to run the full suite of Acceptance tests, run `make testacc`.
 $ make testacc
 ```
 
+The example files have been configured to use the production provider source `cisco-open/dcloud` if you want to use the locally built/installed provider during development change this to `cisco.com/cisco-open/dcloud`
+
+For example
+
+```hcl
+terraform {
+  required_providers {
+    dcloud = {
+      version = "0.1"
+      source  = "cisco-open/dcloud"
+    }
+  }
+}
+```
+becomes
+
+```hcl
+terraform {
+  required_providers {
+    dcloud = {
+      version = "0.1"
+      source  = "cisco.com/cisco-open/dcloud"
+    }
+  }
+}
+```
+This will use the locally installed provider which has been installed by `make`
+
+Ensure the change is rolled back prior to committing
+
 ## Dependencies
 
 The provider makes extensive use of the dCloud Topology Builder Go Client (https://github.com/cisco-open/dcloud-tb-go-client).

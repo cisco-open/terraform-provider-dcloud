@@ -10,7 +10,7 @@ package main
 
 import (
 	"flag"
-	"github.com/cisco-open/terraform-provider-dcloud/internal/dcloudtb"
+	"github.com/cisco-open/terraform-provider-dcloud/internal/dcloud"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
 )
@@ -44,7 +44,7 @@ func main() {
 		Debug: debugMode,
 
 		ProviderFunc: func() *schema.Provider {
-			return dcloudtb.Provider()
+			return dcloud.Provider()
 		},
 	}
 
