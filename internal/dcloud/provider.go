@@ -68,6 +68,7 @@ func Provider() *schema.Provider {
 			"dcloud_network":  resourceNetwork(),
 			"dcloud_vm":       resourceVm(),
 			"dcloud_hw":       resourceHw(),
+			"dcloud_license":  resourceLicense(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
