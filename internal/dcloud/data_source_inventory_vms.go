@@ -18,7 +18,6 @@ import (
 )
 
 func dataSourceInventoryVms() *schema.Resource {
-	// TODO - add IP Address field to Nic
 	return &schema.Resource{
 		Description: "All the inventory VMs available to be used in a topology",
 

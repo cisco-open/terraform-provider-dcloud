@@ -22,7 +22,7 @@ func dataSourceInventoryLicenses() *schema.Resource {
 	return &schema.Resource{
 		Description: "All the inventory licenses available to be used in a topology",
 
-		ReadContext: dataSourceInventoryLicensesRead, // TODO
+		ReadContext: dataSourceInventoryLicensesRead,
 
 		Schema: map[string]*schema.Schema{
 			"topology_uid": {
