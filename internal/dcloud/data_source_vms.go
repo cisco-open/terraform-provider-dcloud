@@ -228,7 +228,7 @@ func dataSourceVmsRead(ctx context.Context, d *schema.ResourceData, m interface{
 	vmResources := make([]map[string]interface{}, len(vms))
 
 	for i, vm := range vms {
-		vmResources[i] = convertVmDataResource(vm, topologyUid)
+		vmResources[i] = convertVmDataResource(vm)
 	}
 
 	if err := d.Set("vms", vmResources); err != nil {
@@ -239,7 +239,7 @@ func dataSourceVmsRead(ctx context.Context, d *schema.ResourceData, m interface{
 	return diag.Diagnostics{}
 }
 
-func convertVmDataResource(vm tbclient.Vm, topologyUid string) map[string]interface{} {
+func convertVmDataResource(vm tbclient.Vm) map[string]interface{} {
 	resource := make(map[string]interface{})
 
 	addVmFields(vm, resource)

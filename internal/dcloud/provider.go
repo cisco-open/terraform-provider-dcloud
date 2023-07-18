@@ -61,6 +61,7 @@ func Provider() *schema.Provider {
 			"dcloud_inventory_hw_template_configs": dataSourceHwTemplateConfigs(),
 			"dcloud_inventory_hws":                 dataSourceInventoryHws(),
 			"dcloud_hws":                           dataSourceHws(),
+			"dcloud_inventory_licenses":            dataSourceInventoryLicenses(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloud_topology": resourceTopology(),

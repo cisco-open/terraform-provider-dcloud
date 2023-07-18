@@ -87,7 +87,7 @@ func dataSourceInventoryHwsRead(ctx context.Context, d *schema.ResourceData, i i
 	inventoryHwResources := make([]map[string]interface{}, len(inventoryHws))
 
 	for i, inventoryHw := range inventoryHws {
-		inventoryHwResources[i] = convertInventoryHwToDataResource(inventoryHw, topologyUid)
+		inventoryHwResources[i] = convertInventoryHwToDataResource(inventoryHw)
 	}
 
 	if err := d.Set("inventory_hws", inventoryHwResources); err != nil {
@@ -98,7 +98,7 @@ func dataSourceInventoryHwsRead(ctx context.Context, d *schema.ResourceData, i i
 	return diag.Diagnostics{}
 }
 
-func convertInventoryHwToDataResource(inventoryHw tbclient.InventoryHw, topologyUid string) map[string]interface{} {
+func convertInventoryHwToDataResource(inventoryHw tbclient.InventoryHw) map[string]interface{} {
 	resource := make(map[string]interface{})
 	resource["id"] = inventoryHw.Id
 	resource["name"] = inventoryHw.Name

@@ -17,19 +17,19 @@ import (
 	"time"
 )
 
-func dataSourceInventoryNetworks() *schema.Resource {
+func dataSourceInventoryLicenses() *schema.Resource {
 
 	return &schema.Resource{
-		Description: "All the inventory networks available to be used in a topology",
+		Description: "All the inventory licenses available to be used in a topology",
 
-		ReadContext: dataSourceInventoryNetworksRead,
+		ReadContext: dataSourceInventoryLicensesRead, // TODO
 
 		Schema: map[string]*schema.Schema{
 			"topology_uid": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"inventory_networks": {
+			"inventory_licenses": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
@@ -38,12 +38,12 @@ func dataSourceInventoryNetworks() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"type": {
+						"name": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"subnet": {
-							Type:     schema.TypeString,
+						"quantity": {
+							Type:     schema.TypeInt,
 							Computed: true,
 						},
 					},
@@ -53,24 +53,24 @@ func dataSourceInventoryNetworks() *schema.Resource {
 	}
 }
 
-func dataSourceInventoryNetworksRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+func dataSourceInventoryLicensesRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
 	tb := m.(*tbclient.Client)
 
 	topologyUid := d.Get("topology_uid").(string)
 
-	inventoryNetworks, err := tb.GetAllInventoryNetworks(topologyUid)
+	inventoryLicenses, err := tb.GetAllInventoryLicenses(topologyUid)
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	inventoryNetworkResources := make([]map[string]interface{}, len(inventoryNetworks))
+	inventoryLicenseResources := make([]map[string]interface{}, len(inventoryLicenses))
 
-	for i, inventoryNetwork := range inventoryNetworks {
-		inventoryNetworkResources[i] = convertInventoryNetworkToDataResource(inventoryNetwork)
+	for i, inventoryLicense := range inventoryLicenses {
+		inventoryLicenseResources[i] = convertInventoryLicenseToDataResource(inventoryLicense)
 	}
 
-	if err := d.Set("inventory_networks", inventoryNetworkResources); err != nil {
+	if err := d.Set("inventory_licenses", inventoryLicenseResources); err != nil {
 		return diag.FromErr(err)
 	}
 	d.SetId(strconv.FormatInt(time.Now().Unix(), 10))
@@ -78,11 +78,11 @@ func dataSourceInventoryNetworksRead(ctx context.Context, d *schema.ResourceData
 	return diag.Diagnostics{}
 }
 
-func convertInventoryNetworkToDataResource(inventoryNetwork tbclient.InventoryNetwork) map[string]interface{} {
+func convertInventoryLicenseToDataResource(inventoryLicense tbclient.InventoryLicense) map[string]interface{} {
 	resource := make(map[string]interface{})
-	resource["id"] = inventoryNetwork.Id
-	resource["type"] = inventoryNetwork.Type
-	resource["subnet"] = inventoryNetwork.Subnet
+	resource["id"] = inventoryLicense.Id
+	resource["name"] = inventoryLicense.Name
+	resource["quantity"] = inventoryLicense.Quantity
 
 	return resource
 }
