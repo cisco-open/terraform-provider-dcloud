@@ -18,7 +18,6 @@ import (
 )
 
 func dataSourceInventoryVms() *schema.Resource {
-	// TODO - add IP Address field to Nic
 	return &schema.Resource{
 		Description: "All the inventory VMs available to be used in a topology",
 
@@ -127,7 +126,7 @@ func dataSourceInventoryVmsRead(ctx context.Context, d *schema.ResourceData, m i
 	inventoryVmResources := make([]map[string]interface{}, len(inventoryVms))
 
 	for i, inventoryVm := range inventoryVms {
-		inventoryVmResources[i] = convertInventoryVmToDataResource(inventoryVm, topologyUid)
+		inventoryVmResources[i] = convertInventoryVmToDataResource(inventoryVm)
 	}
 
 	if err := d.Set("inventory_vms", inventoryVmResources); err != nil {
@@ -138,7 +137,7 @@ func dataSourceInventoryVmsRead(ctx context.Context, d *schema.ResourceData, m i
 	return diag.Diagnostics{}
 }
 
-func convertInventoryVmToDataResource(inventoryVm tbclient.InventoryVm, topologyUid string) map[string]interface{} {
+func convertInventoryVmToDataResource(inventoryVm tbclient.InventoryVm) map[string]interface{} {
 	resource := make(map[string]interface{})
 	resource["id"] = inventoryVm.Id
 	resource["datacenter"] = inventoryVm.Datacenter

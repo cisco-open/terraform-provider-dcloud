@@ -135,3 +135,10 @@ resource "dcloud_hw" "hw2" {
   inventory_hw_id = "14"
   name            = "UCS Hardware Pod"
 }
+
+
+resource "dcloud_license" "mc_license" {
+  quantity             = 3
+  inventory_license_id = "340"
+  topology_uid         = dcloud_topology.test_topology.id
+}
