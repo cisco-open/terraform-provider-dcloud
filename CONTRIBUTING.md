@@ -17,7 +17,7 @@ Please note that all interactions within the project are subject to our [Code of
 
 ## Reporting Issues
 
-Before reporting a new issue, please search our [issues list](https://github.com/cisco-open/dcloud-tb-go-client/issues) to ensure that it hasn't already been reported or fixed.
+Before reporting a new issue, please search our [issues list](https://github.com/cisco-open/terraform-provider-dcloud/issues) to ensure that it hasn't already been reported or fixed.
 
 When creating a new issue, include a clear title, a detailed description, relevant information, and if possible, a test case.
 
