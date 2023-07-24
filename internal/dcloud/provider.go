@@ -65,11 +65,12 @@ func Provider() *schema.Provider {
 			"dcloud_licenses":                      dataSourceLicenses(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"dcloud_topology": resourceTopology(),
-			"dcloud_network":  resourceNetwork(),
-			"dcloud_vm":       resourceVm(),
-			"dcloud_hw":       resourceHw(),
-			"dcloud_license":  resourceLicense(),
+			"dcloud_topology":       resourceTopology(),
+			"dcloud_network":        resourceNetwork(),
+			"dcloud_vm":             resourceVm(),
+			"dcloud_hw":             resourceHw(),
+			"dcloud_license":        resourceLicense(),
+			"dcloud_vm_start_order": resourceVmStartOrder(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
