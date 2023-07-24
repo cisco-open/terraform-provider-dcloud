@@ -112,7 +112,7 @@ func resourceVmStartOrderRead(ctx context.Context, data *schema.ResourceData, i 
 	data.Set("uid", vmStartOrder.Uid)
 	data.Set("ordered", vmStartOrder.Ordered)
 	data.Set("topology_uid", vmStartOrder.Topology.Uid)
-	data.Set("start_positions", convertStartPositions(vmStartOrder.Positions))
+	data.Set("start_positions", convertVmStartPositions(vmStartOrder.Positions))
 
 	data.SetId(vmStartOrder.Uid)
 
@@ -143,7 +143,7 @@ func resourceVmStartOrderDelete(ctx context.Context, data *schema.ResourceData, 
 	return diag.Diagnostics{}
 }
 
-func convertStartPositions(positions []tbclient.VmStartPosition) []map[string]interface{} {
+func convertVmStartPositions(positions []tbclient.VmStartPosition) []map[string]interface{} {
 	vmPositions := make([]map[string]interface{}, len(positions))
 
 	sort.Slice(positions, func(i, j int) bool {
@@ -167,11 +167,11 @@ func convertStartPositions(positions []tbclient.VmStartPosition) []map[string]in
 func extractVmStartOrder(data *schema.ResourceData) *tbclient.VmStartOrder {
 	return &tbclient.VmStartOrder{
 		Ordered:   data.Get("ordered").(bool),
-		Positions: extractPositions(data),
+		Positions: extractVmStartPositions(data),
 	}
 }
 
-func extractPositions(data *schema.ResourceData) []tbclient.VmStartPosition {
+func extractVmStartPositions(data *schema.ResourceData) []tbclient.VmStartPosition {
 	dataPositions := data.Get("start_positions").([]interface{})
 
 	vmStartPositions := make([]tbclient.VmStartPosition, len(dataPositions))
