@@ -174,3 +174,20 @@ resource "dcloud_vm_stop_order" "vm_stop_order" {
     vm_uid   = dcloud_vm.vm1.id
   }
 }
+
+resource "dcloud_hw_start_order" "hw_start_order" {
+  ordered      = true
+  topology_uid = dcloud_topology.test_topology.id
+
+  start_positions {
+    position      = 1
+    delay_seconds = 10
+    hw_uid        = dcloud_hw.hw1.id
+  }
+
+  start_positions {
+    position      = 2
+    delay_seconds = 20
+    hw_uid        = dcloud_hw.hw2.id
+  }
+}
