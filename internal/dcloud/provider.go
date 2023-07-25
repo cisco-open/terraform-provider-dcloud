@@ -71,6 +71,7 @@ func Provider() *schema.Provider {
 			"dcloud_hw":             resourceHw(),
 			"dcloud_license":        resourceLicense(),
 			"dcloud_vm_start_order": resourceVmStartOrder(),
+			"dcloud_vm_stop_order":  resourceVmStopOrder(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
