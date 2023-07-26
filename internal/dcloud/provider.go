@@ -73,6 +73,7 @@ func Provider() *schema.Provider {
 			"dcloud_vm_start_order": resourceVmStartOrder(),
 			"dcloud_vm_stop_order":  resourceVmStopOrder(),
 			"dcloud_hw_start_order": resourceHwStartOrder(),
+			"dcloud_remote_access":  resourceRemoteAccess(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
