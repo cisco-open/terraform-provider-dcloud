@@ -191,3 +191,9 @@ resource "dcloud_hw_start_order" "hw_start_order" {
     hw_uid        = dcloud_hw.hw2.id
   }
 }
+
+resource "dcloud_remote_access" "remote_access" {
+  any_connect_enabled  = true
+  endpoint_kit_enabled = true
+  topology_uid         = dcloud_topology.test_topology.id
+}
