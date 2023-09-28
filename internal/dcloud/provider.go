@@ -75,6 +75,7 @@ func Provider() *schema.Provider {
 			"dcloud_hw_start_order": resourceHwStartOrder(),
 			"dcloud_remote_access":  resourceRemoteAccess(),
 			"dcloud_scenario":       resourceScenario(),
+			"dcloud_documentation":  resourceDoc(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
