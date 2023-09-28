@@ -12,13 +12,13 @@ provider "dcloud" {
 }
 
 resource "dcloud_topology" "test_topology" {
-  name        = "My Terraformed Topology"
-  description = "A topology created from terraform"
-  notes       = "Programmatic clients rule!"
+  name        = "Documentation Resource Test"
+  description = "Testing Topology Documentation Resource Management"
+  notes       = "Created via Terraform Test"
   datacenter  = "LON"
 }
 
-resource "dcloud_documentation" "documentation" {
+resource "dcloud_documentation" "test_documentation" {
   topology_uid = dcloud_topology.test_topology.id
   doc_url = "https://johndoe.com"
 }
