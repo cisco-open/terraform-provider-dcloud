@@ -213,3 +213,8 @@ resource "dcloud_scenario" "scenario" {
     display_name  = "Launch Demo Context2"
   }
 }
+
+resource "dcloud_documentation" "documentation" {
+  topology_uid = dcloud_topology.test_topology.id
+  doc_url = "https://johndoe.com"
+}
