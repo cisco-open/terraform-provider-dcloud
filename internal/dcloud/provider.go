@@ -63,6 +63,8 @@ func Provider() *schema.Provider {
 			"dcloud_hws":                           dataSourceHws(),
 			"dcloud_inventory_licenses":            dataSourceInventoryLicenses(),
 			"dcloud_licenses":                      dataSourceLicenses(),
+			"dcloud_inventory_telephony":           dataSourceInventoryTelephony(),
+			"dcloud_telephony":                     dataSourceTelephony(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloud_topology":       resourceTopology(),
@@ -76,6 +78,7 @@ func Provider() *schema.Provider {
 			"dcloud_remote_access":  resourceRemoteAccess(),
 			"dcloud_scenario":       resourceScenario(),
 			"dcloud_documentation":  resourceDoc(),
+			"dcloud_telephony":      resourceTelephony(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}

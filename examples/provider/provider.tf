@@ -218,3 +218,8 @@ resource "dcloud_documentation" "documentation" {
   topology_uid = dcloud_topology.test_topology.id
   doc_url = "https://johndoe.com"
 }
+
+resource "dcloud_telephony" "telephony" {
+  topology_uid = dcloud_topology.test_topology.id
+  inventory_telephony_id = "1"
+}
