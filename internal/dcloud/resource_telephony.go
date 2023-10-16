@@ -12,13 +12,12 @@ func resourceTelephony() *schema.Resource {
 
 		CreateContext: resourceTelephonyCreate,
 		ReadContext:   resourceTelephonyRead,
-		UpdateContext: resourceTelephonyUpdate,
 		DeleteContext: resourceTelephonyDelete,
-
 		Schema: map[string]*schema.Schema{
 			"topology_uid": {
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
 			},
 			"uid": {
 				Type:     schema.TypeString,
@@ -31,6 +30,7 @@ func resourceTelephony() *schema.Resource {
 			"inventory_telephony_id": {
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
 			},
 			"inventory_telephony_name": {
 				Type:     schema.TypeString,
@@ -88,10 +88,6 @@ func resourceTelephonyRead(ctx context.Context, data *schema.ResourceData, i int
 	data.Set("topology_uid", telephonyItem[0].Topology.Uid)
 
 	return diags
-}
-
-func resourceTelephonyUpdate(ctx context.Context, data *schema.ResourceData, i interface{}) diag.Diagnostics {
-	return resourceTelephonyCreate(ctx, data, i)
 }
 
 func resourceTelephonyDelete(ctx context.Context, data *schema.ResourceData, i interface{}) diag.Diagnostics {
