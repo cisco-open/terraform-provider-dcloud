@@ -223,3 +223,10 @@ resource "dcloud_telephony" "telephony" {
   topology_uid = dcloud_topology.test_topology.id
   inventory_telephony_id = "1"
 }
+
+resource "dcloud_ip_nat_rule" "ip_nat_rule"{
+  topology_uid = dcloud_topology.test_topology.id
+  target_ip_address = "192.168.1.1"
+  target_name = "Sample Device"
+  east_west = true
+}

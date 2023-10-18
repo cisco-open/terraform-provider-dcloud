@@ -65,6 +65,7 @@ func Provider() *schema.Provider {
 			"dcloud_licenses":                      dataSourceLicenses(),
 			"dcloud_inventory_telephony":           dataSourceInventoryTelephony(),
 			"dcloud_telephony":                     dataSourceTelephony(),
+			"dcloud_ip_nat_rules":                  dataSourceIpNatRules(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloud_topology":       resourceTopology(),
@@ -79,6 +80,7 @@ func Provider() *schema.Provider {
 			"dcloud_scenario":       resourceScenario(),
 			"dcloud_documentation":  resourceDoc(),
 			"dcloud_telephony":      resourceTelephony(),
+			"dcloud_ip_nat_rule":    resourceIpNat(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
