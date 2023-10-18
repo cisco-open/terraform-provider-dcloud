@@ -12,7 +12,7 @@ provider "dcloud" {
 }
 
 resource "dcloud_topology" "test_topology" {
-  name        = "Test Topology For Testing IP NAR Rule"
+  name        = "Test Topology For Testing IP NAT Rule"
   description = "Will be used to create IP NAT rules "
   notes       = ""
   datacenter  = "LON"

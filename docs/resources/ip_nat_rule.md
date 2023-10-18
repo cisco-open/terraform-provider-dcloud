@@ -18,7 +18,6 @@ description: |-
 - `target_name` (String)
 - `east_west` (Bool)
 - `topology_uid` (String)
-- `uid` (String)
 
 
 ### Read-Only
