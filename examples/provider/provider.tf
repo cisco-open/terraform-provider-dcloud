@@ -2,7 +2,7 @@ terraform {
   required_providers {
     dcloud = {
       version = "0.1"
-      source  = "cisco.com/cisco-open/dcloud"
+      source  = "cisco-open/dcloud"
     }
   }
 }
@@ -112,7 +112,58 @@ resource "dcloud_vm" "vm2" {
     type        = "VIRTUAL_E1000"
   }
 }
-/*
+
+resource "dcloud_vm" "vm3" {
+  inventory_vm_id   = "7668085"
+  topology_uid      = dcloud_topology.test_topology.id
+  name              = "Ubuntu Desktop 3"
+  description       = "A standard Ubuntu Desktop VM"
+  cpu_qty           = 8
+  memory_mb         = 8192
+  nested_hypervisor = false
+  os_family         = "LINUX"
+
+  advanced_settings {
+    all_disks_non_persistent = false
+    bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
+    name_in_hypervisor       = "ubuntu"
+    not_started              = false
+  }
+
+  network_interfaces {
+    network_uid = dcloud_network.routed_network.id
+    name        = "Network adapter 0"
+    mac_address = "00:50:56:00:01:CA"
+    type        = "VIRTUAL_E1000"
+  }
+
+  network_interfaces{
+    network_uid    = dcloud_network.unrouted_network.id
+    name           = "Network adapter 1"
+    mac_address    = "00:50:56:00:01:CB"
+    type           = "VIRTUAL_E1000"
+    ip_address     = "127.0.0.3"
+    ssh_enabled    = true
+    rdp_enabled    = true
+    rdp_auto_login = true
+  }
+
+  remote_access {
+    username           = "user"
+    password           = "password"
+    vm_console_enabled = true
+
+    display_credentials {
+      username = "displayuser"
+      password = "displaypassword"
+    }
+  }
+
+  guest_automation {
+    command       = "RUN PROGRAM"
+    delay_seconds = 10
+  }
+}
 
 resource "dcloud_hw" "hw1" {
   topology_uid               = dcloud_topology.test_topology.id
@@ -222,60 +273,6 @@ resource "dcloud_telephony" "telephony" {
   topology_uid = dcloud_topology.test_topology.id
   inventory_telephony_id = "1"
 }
-*/
-
-resource "dcloud_vm" "vm3" {
-  inventory_vm_id   = "7668085"
-  topology_uid      = dcloud_topology.test_topology.id
-  name              = "Ubuntu Desktop 3"
-  description       = "A standard Ubuntu Desktop VM"
-  cpu_qty           = 8
-  memory_mb         = 8192
-  nested_hypervisor = false
-  os_family         = "LINUX"
-
-  advanced_settings {
-    all_disks_non_persistent = false
-    bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
-    name_in_hypervisor       = "ubuntu"
-    not_started              = false
-  }
-
-  network_interfaces {
-    network_uid = dcloud_network.routed_network.id
-    name        = "Network adapter 0"
-    mac_address = "00:50:56:00:01:AA"
-    type        = "VIRTUAL_E1000"
-  }
-
-  network_interfaces{
-    network_uid    = dcloud_network.unrouted_network.id
-    name           = "Network adapter 1"
-    mac_address    = "00:50:56:00:01:AB"
-    type           = "VIRTUAL_E1000"
-    ip_address     = "127.0.0.3"
-    ssh_enabled    = true
-    rdp_enabled    = true
-    rdp_auto_login = true
-  }
-
-  remote_access {
-    username           = "user"
-    password           = "password"
-    vm_console_enabled = true
-
-    display_credentials {
-      username = "displayuser"
-      password = "displaypassword"
-    }
-  }
-
-  guest_automation {
-    command       = "RUN PROGRAM"
-    delay_seconds = 10
-  }
-}
-
 
 resource "dcloud_ip_nat_rule" "ip_nat_rule"{
   topology_uid = dcloud_topology.test_topology.id
@@ -284,29 +281,19 @@ resource "dcloud_ip_nat_rule" "ip_nat_rule"{
   east_west = false
 }
 
-resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
+resource "dcloud_vm_nat_rule" "vm_nat_rule"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm1.network_interfaces[1].uid
-  target_vm_name = dcloud_vm.vm1.name
-  tcp_port = 443
-  url_path = "/demo/demo010/"
-  hyperlink = "Click Me"
-  ssl = true
+  east_west = true
 }
-resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule_2"{
+
+resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm3.network_interfaces[1].uid
   target_vm_name = dcloud_vm.vm1.name
   tcp_port = 443
-  url_path = "/demo/demo010/"
-  hyperlink = "Click Me"
+  url_path = "/testing/url/"
+  hyperlink = "Test Hyperlink"
   ssl = true
-}
-
-data "dcloud_inbound_proxy_rules" "test_topology_inbound_proxy" {
-  topology_uid = dcloud_topology.test_topology.id
-}
-
-output "inbound_proxy_rules" {
-  value = data.dcloud_inbound_proxy_rules.test_topology_inbound_proxy
+  show_hyperlink = true
 }
