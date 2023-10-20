@@ -9,7 +9,6 @@ import (
 
 func resourceTelephony() *schema.Resource {
 	return &schema.Resource{
-
 		CreateContext: resourceTelephonyCreate,
 		ReadContext:   resourceTelephonyRead,
 		DeleteContext: resourceTelephonyDelete,

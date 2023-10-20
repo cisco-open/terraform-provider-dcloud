@@ -56,7 +56,7 @@ resource "dcloud_vm" "vm1" {
     type        = "VIRTUAL_E1000"
   }
 
-  network_interfaces {
+  network_interfaces{
     network_uid    = dcloud_network.unrouted_network.id
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:01:AB"
@@ -135,7 +135,6 @@ resource "dcloud_hw" "hw2" {
   inventory_hw_id = "14"
   name            = "UCS Hardware Pod"
 }
-
 
 resource "dcloud_license" "mc_license" {
   quantity             = 3
@@ -222,4 +221,17 @@ resource "dcloud_documentation" "documentation" {
 resource "dcloud_telephony" "telephony" {
   topology_uid = dcloud_topology.test_topology.id
   inventory_telephony_id = "1"
+}
+
+resource "dcloud_ip_nat_rule" "ip_nat_rule"{
+  topology_uid = dcloud_topology.test_topology.id
+  target_ip_address = "192.168.1.1"
+  target_name = "Sample Device"
+  east_west = false
+}
+
+resource "dcloud_vm_nat_rule" "vm_nat_rule"{
+  topology_uid = dcloud_topology.test_topology.id
+  nic_uid = dcloud_vm.vm1.network_interfaces[1].uid
+  east_west = false
 }
