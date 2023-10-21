@@ -13,7 +13,7 @@ provider "dcloud" {
 
 resource "dcloud_topology" "test_topology" {
   name        = "Test Topology For Testing VM NAT Rule"
-  description = "Will be used to create VM NAT rules "
+  description = "Will be used to load VM NAT rules "
   notes       = ""
   datacenter  = "LON"
 }

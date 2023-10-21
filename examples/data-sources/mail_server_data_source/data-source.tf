@@ -12,16 +12,16 @@ provider "dcloud" {
 }
 
 resource "dcloud_topology" "test_topology" {
-  name        = "Test Topology For Testing Inbound Proxy rules"
-  description = "Will be used to load Inbound proxy Rules"
+  name        = "Test Topology For Testing Mail Servers"
+  description = "Will be used to load Mail Servers"
   notes       = ""
   datacenter  = "LON"
 }
 
-data "dcloud_inbound_proxy_rules" "test_topology_inbound_proxy" {
+data "dcloud_mail_servers" "test_topology_mail_server"{
   topology_uid = dcloud_topology.test_topology.id
 }
 
-output "inbound_proxy_rules" {
-  value = data.dcloud_inbound_proxy_rules.test_topology_inbound_proxy
+output "mail_servers" {
+  value = data.dcloud_mail_servers.test_topology_mail_server
 }

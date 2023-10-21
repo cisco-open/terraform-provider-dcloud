@@ -12,8 +12,8 @@ provider "dcloud" {
 }
 
 resource "dcloud_topology" "test_topology" {
-  name        = "Inbound Proxy Resource Test"
-  description = "Testing Topology Inbound Proxy Resource Management"
+  name        = "Mail Server Resource Test"
+  description = "Testing Topology Mail Server Resource Management"
   notes       = "Created via Terraform Test"
   datacenter  = "LON"
 }
@@ -60,12 +60,8 @@ resource "dcloud_vm" "vm1" {
   }
 }
 
-resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
+resource "dcloud_mail_server" "mail_server"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm1.network_interfaces[0].uid
-  target_vm_name = dcloud_vm.vm1.name
-  tcp_port = 443
-  url_path = "/testing/url/"
-  hyperlink = "Click Me"
-  ssl = true
+  dns_asset_id = "3"
 }
