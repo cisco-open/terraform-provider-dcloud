@@ -14,18 +14,16 @@ description: |-
 
 ### Required
 
-- `target_ip_address` (String)
-- `target_name` (String)
 - `nic_uid` (String)
 - `east_west` (Bool)
 - `topology_uid` (String)
-
-
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
 - `uid` (String)
+- `target_ip_address` (String)
+- `target_name` (String)
 
 
 

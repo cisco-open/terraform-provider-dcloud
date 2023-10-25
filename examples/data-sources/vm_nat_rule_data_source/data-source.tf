@@ -18,13 +18,6 @@ resource "dcloud_topology" "test_topology" {
   datacenter  = "LON"
 }
 
-resource "dcloud_network" "routed_network" {
-  name                 = "A routed network"
-  description          = "Demonstrating a network routed through VPOD Gateway"
-  inventory_network_id = "L3-VLAN-2"
-  topology_uid         = dcloud_topology.test_topology.id
-}
-
 resource "dcloud_network" "unrouted_network" {
   name                 = "An unrouted network"
   description          = "Demonstrating a network not routed through VPOD Gateway"
@@ -37,10 +30,19 @@ resource "dcloud_vm" "vm1" {
   topology_uid      = dcloud_topology.test_topology.id
   name              = "Ubuntu Desktop 1"
   description       = "A standard Ubuntu Desktop VM"
-  cpu_qty           = 8
-  memory_mb         = 8192
-  nested_hypervisor = false
-  os_family         = "LINUX"
+  cpu_qty           = 1
+  memory_mb         = 1024
+
+  network_interfaces{
+    network_uid    = dcloud_network.unrouted_network.id
+    name           = "Network adapter 1"
+    mac_address    = "00:50:56:00:03:AA"
+    type           = "VIRTUAL_E1000"
+    ip_address     = "127.0.0.2"
+    ssh_enabled    = true
+    rdp_enabled    = true
+    rdp_auto_login = true
+  }
 
   advanced_settings {
     all_disks_non_persistent = false
@@ -49,49 +51,25 @@ resource "dcloud_vm" "vm1" {
     not_started              = false
   }
 
-  network_interfaces {
-    network_uid = dcloud_network.routed_network.id
-    name        = "Network adapter 0"
-    mac_address = "00:50:56:00:01:AA"
-    type        = "VIRTUAL_E1000"
-  }
-
-  network_interfaces{
-    network_uid    = dcloud_network.unrouted_network.id
-    name           = "Network adapter 1"
-    mac_address    = "00:50:56:00:01:AB"
-    type           = "VIRTUAL_E1000"
-    ip_address     = "127.0.0.2"
-    ssh_enabled    = true
-    rdp_enabled    = true
-    rdp_auto_login = true
-  }
-
   remote_access {
-    username           = "user"
-    password           = "password"
     vm_console_enabled = true
-
     display_credentials {
       username = "displayuser"
       password = "displaypassword"
     }
   }
 
-  guest_automation {
-    command       = "RUN PROGRAM"
-    delay_seconds = 10
-  }
 }
 
-resource "dcloud_vm_nat_rule" "vm_nat"{
+resource "dcloud_vm_nat_rule" "vm_nat_rule"{
   topology_uid = dcloud_topology.test_topology.id
-  nic_uid = dcloud_vm.vm1.network_interfaces[1].uid
+  nic_uid = dcloud_vm.vm1.network_interfaces[0].uid
   east_west = true
 }
 
 data "dcloud_vm_nat_rules" "test_topology_vm_nat_rules"{
   topology_uid = dcloud_topology.test_topology.id
+  depends_on = [dcloud_vm_nat_rule.vm_nat_rule]
 }
 
 output "vm_nat_rules" {

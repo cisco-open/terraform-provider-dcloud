@@ -17,8 +17,6 @@ description: |-
 - `nic_uid` (String)
 - `dns_asset_id` (String)
 - `topology_uid` (String)
-- `uid` (String)
-
 
 ### Read-Only
 

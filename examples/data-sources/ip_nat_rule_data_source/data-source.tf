@@ -27,6 +27,7 @@ resource "dcloud_ip_nat_rule" "ip_nat"{
 
 data "dcloud_ip_nat_rules" "test_topology_ip_nat_rules"{
   topology_uid = dcloud_topology.test_topology.id
+  depends_on = [dcloud_ip_nat_rule.ip_nat]
 }
 
 output "ip_nat_rules" {

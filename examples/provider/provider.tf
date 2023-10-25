@@ -2,7 +2,7 @@ terraform {
   required_providers {
     dcloud = {
       version = "0.1"
-      source  = "cisco.com/cisco-open/dcloud"
+      source  = "cisco-open/dcloud"
     }
   }
 }
@@ -108,8 +108,19 @@ resource "dcloud_vm" "vm2" {
   network_interfaces {
     network_uid = dcloud_network.routed_network.id
     name        = "Network adapter 0"
-    mac_address = "00:50:56:00:01:AF"
+    mac_address = "00:50:56:00:02:AF"
     type        = "VIRTUAL_E1000"
+  }
+
+  network_interfaces{
+    network_uid    = dcloud_network.unrouted_network.id
+    name           = "Network adapter 1"
+    mac_address    = "00:50:56:00:02:AB"
+    type           = "VIRTUAL_E1000"
+    ip_address     = "127.0.0.3"
+    ssh_enabled    = true
+    rdp_enabled    = true
+    rdp_auto_login = true
   }
 }
 
@@ -126,7 +137,7 @@ resource "dcloud_vm" "vm3" {
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:03:AA"
     type           = "VIRTUAL_E1000"
-    ip_address     = "127.0.0.3"
+    ip_address     = "127.0.0.4"
     ssh_enabled    = true
     rdp_enabled    = true
     rdp_auto_login = true
@@ -161,7 +172,7 @@ resource "dcloud_vm" "vm4" {
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:04:AA"
     type           = "VIRTUAL_E1000"
-    ip_address     = "127.0.0.4"
+    ip_address     = "127.0.0.5"
     ssh_enabled    = true
     rdp_enabled    = true
     rdp_auto_login = true
@@ -308,7 +319,7 @@ resource "dcloud_vm_nat_rule" "vm_nat_rule"{
 
 resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
   topology_uid = dcloud_topology.test_topology.id
-  nic_uid = dcloud_vm.vm3.network_interfaces[1].uid
+  nic_uid = dcloud_vm.vm2.network_interfaces[1].uid
   target_vm_name = dcloud_vm.vm1.name
   tcp_port = 443
   url_path = "/testing/url/"
@@ -319,6 +330,6 @@ resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
 
 resource "dcloud_mail_server" "mail_server"{
   topology_uid = dcloud_topology.test_topology.id
-  nic_uid = dcloud_vm.vm1.network_interfaces[1].uid
-  dns_asset_id = "4"
+  nic_uid = dcloud_vm.vm4.network_interfaces[0].uid
+  dns_asset_id = "3"
 }

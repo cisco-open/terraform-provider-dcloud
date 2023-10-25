@@ -20,8 +20,11 @@ description: |-
 - `hyperlink` (String)
 - `tcp_port` (Integer)
 - `topology_uid` (String)
-- `uid` (String)
 
+### Optional
+
+- `ssl` (Bool)
+- `show_hyperlink` (String)
 
 ### Read-Only
 
