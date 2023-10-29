@@ -2,7 +2,7 @@ terraform {
   required_providers {
     dcloud = {
       version = "0.1"
-      source  = "cisco-open/dcloud"
+      source  = "cisco.com/cisco-open/dcloud"
     }
   }
 }
@@ -83,7 +83,7 @@ resource "dcloud_vm" "vm1" {
     delay_seconds = 10
   }
 }
-
+/*
 resource "dcloud_vm" "vm2" {
   inventory_vm_id   = "7668085"
   topology_uid      = dcloud_topology.test_topology.id
@@ -303,14 +303,14 @@ resource "dcloud_telephony" "telephony" {
   topology_uid = dcloud_topology.test_topology.id
   inventory_telephony_id = "1"
 }
-
+*/
 resource "dcloud_ip_nat_rule" "ip_nat_rule"{
   topology_uid = dcloud_topology.test_topology.id
   target_ip_address = "192.168.1.1"
   target_name = "Sample Device"
   east_west = false
 }
-
+/*
 resource "dcloud_vm_nat_rule" "vm_nat_rule"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm1.network_interfaces[1].uid
@@ -332,4 +332,25 @@ resource "dcloud_mail_server" "mail_server"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm4.network_interfaces[0].uid
   dns_asset_id = "3"
+}
+*/
+
+resource "dcloud_external_dns" "external_dns"{
+  topology_uid = dcloud_topology.test_topology.id
+  nat_rule_id = dcloud_ip_nat_rule.ip_nat_rule.id
+  hostname = "localhost"
+  srv_records{
+    service = "_test"
+    protocol = "TCP"
+    port = 8081
+  }
+}
+
+data "dcloud_external_dns" "external_dns_test"{
+  depends_on = [dcloud_external_dns.external_dns]
+  topology_uid = dcloud_topology.test_topology.id
+}
+
+output "external_dns" {
+  value = data.dcloud_external_dns.external_dns_test
 }
