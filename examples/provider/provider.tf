@@ -345,7 +345,7 @@ resource "dcloud_external_dns" "external_dns"{
     port = 8081
   }
 }
-
+/*
 data "dcloud_external_dns" "external_dns_test"{
   depends_on = [dcloud_external_dns.external_dns]
   topology_uid = dcloud_topology.test_topology.id
@@ -354,7 +354,7 @@ data "dcloud_external_dns" "external_dns_test"{
 output "external_dns" {
   value = data.dcloud_external_dns.external_dns_test
 }
-/*
+
 data "dcloud_inventory_dns_assets" "external_dns_test"{
   depends_on = [dcloud_external_dns.external_dns]
   topology_uid = dcloud_topology.test_topology.id
@@ -364,3 +364,9 @@ output "external_dns" {
   value = data.dcloud_inventory_dns_assets.external_dns_test
 }
 */
+data "dcloud_inventory_srv_protocols" "external_dns_test"{
+}
+
+output "external_dns" {
+  value = data.dcloud_inventory_srv_protocols.external_dns_test
+}
