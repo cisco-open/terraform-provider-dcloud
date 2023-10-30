@@ -70,6 +70,7 @@ func Provider() *schema.Provider {
 			"dcloud_inbound_proxy_rules":           dataSourceInboundProxyRules(),
 			"dcloud_mail_servers":                  dataSourceMailServers(),
 			"dcloud_external_dns":                  dataSourceExternalDns(),
+			"dcloud_inventory_dns_assets":          dataSourceInventoryDnsAssets(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloud_topology":           resourceTopology(),
