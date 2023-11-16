@@ -33,8 +33,7 @@ func resourceInboundProxy() *schema.Resource {
 			},
 			"target_vm_name": {
 				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Computed: true,
 			},
 			"tcp_port": {
 				Type:     schema.TypeInt,
@@ -79,7 +78,7 @@ func resourceInboundProxyCreate(ctx context.Context, data *schema.ResourceData, 
 		VmNicTarget: &tbclient.TrafficVmNicTarget{
 			Uid: data.Get("nic_uid").(string),
 			Vm: &tbclient.Vm{
-				Name: data.Get("target_vm_name").(string),
+				Name: "", //TODO: Get this field removed
 			},
 		},
 		TcpPort: data.Get("tcp_port").(int),
