@@ -12,8 +12,8 @@ provider "dcloud" {
 }
 
 resource "dcloud_topology" "test_topology" {
-  name        = "Test Topology For Testing VM NAT Rule"
-  description = "Will be used to load VM NAT rules "
+  name        = "Test Topology For Testing Inbound Proxy rules"
+  description = "Will be used to load Inbound proxy Rules"
   notes       = ""
   datacenter  = "LON"
 }
@@ -61,17 +61,21 @@ resource "dcloud_vm" "vm1" {
 
 }
 
-resource "dcloud_vm_nat_rule" "vm_nat_rule"{
+resource "dcloud_inbound_proxy_rule" "test_topology_inbound_proxy_rule"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm1.network_interfaces[0].uid
-  east_west = true
+  tcp_port = 443
+  url_path = "/testing/url/"
+  hyperlink = "Test Hyperlink"
+  ssl = true
+  show_hyperlink = true
 }
 
-data "dcloud_vm_nat_rules" "test_topology_vm_nat_rules"{
+data "dcloud_inbound_proxy_rules" "test_topology_inbound_proxy" {
   topology_uid = dcloud_topology.test_topology.id
-  depends_on = [dcloud_vm_nat_rule.vm_nat_rule]
+  depends_on = [dcloud_inbound_proxy_rule.test_topology_inbound_proxy_rule]
 }
 
-output "vm_nat_rules" {
-  value = data.dcloud_vm_nat_rules.test_topology_vm_nat_rules
+output "inbound_proxy_rules" {
+  value = data.dcloud_inbound_proxy_rules.test_topology_inbound_proxy
 }

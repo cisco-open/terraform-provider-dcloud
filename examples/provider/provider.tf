@@ -108,8 +108,89 @@ resource "dcloud_vm" "vm2" {
   network_interfaces {
     network_uid = dcloud_network.routed_network.id
     name        = "Network adapter 0"
-    mac_address = "00:50:56:00:01:AF"
+    mac_address = "00:50:56:00:02:AF"
     type        = "VIRTUAL_E1000"
+  }
+
+  network_interfaces{
+    network_uid    = dcloud_network.unrouted_network.id
+    name           = "Network adapter 1"
+    mac_address    = "00:50:56:00:02:AB"
+    type           = "VIRTUAL_E1000"
+    ip_address     = "127.0.0.3"
+    ssh_enabled    = true
+    rdp_enabled    = true
+    rdp_auto_login = true
+  }
+}
+
+resource "dcloud_vm" "vm3" {
+  inventory_vm_id   = "7668085"
+  topology_uid      = dcloud_topology.test_topology.id
+  name              = "Ubuntu Desktop 3"
+  description       = "A standard Ubuntu Desktop VM"
+  cpu_qty           = 1
+  memory_mb         = 1024
+
+  network_interfaces{
+    network_uid    = dcloud_network.unrouted_network.id
+    name           = "Network adapter 1"
+    mac_address    = "00:50:56:00:03:AA"
+    type           = "VIRTUAL_E1000"
+    ip_address     = "127.0.0.4"
+    ssh_enabled    = true
+    rdp_enabled    = true
+    rdp_auto_login = true
+  }
+
+  advanced_settings {
+    all_disks_non_persistent = false
+    bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
+    name_in_hypervisor       = "ubuntu"
+    not_started              = false
+  }
+
+  remote_access {
+    vm_console_enabled = true
+    display_credentials {
+      username = "displayuser"
+      password = "displaypassword"
+    }
+  }
+}
+
+resource "dcloud_vm" "vm4" {
+  inventory_vm_id   = "7668085"
+  topology_uid      = dcloud_topology.test_topology.id
+  name              = "Ubuntu Desktop 4"
+  description       = "A standard Ubuntu Desktop VM"
+  cpu_qty           = 1
+  memory_mb         = 1024
+
+  network_interfaces{
+    network_uid    = dcloud_network.unrouted_network.id
+    name           = "Network adapter 1"
+    mac_address    = "00:50:56:00:04:AA"
+    type           = "VIRTUAL_E1000"
+    ip_address     = "127.0.0.5"
+    ssh_enabled    = true
+    rdp_enabled    = true
+    rdp_auto_login = true
+  }
+
+  advanced_settings {
+    all_disks_non_persistent = false
+    bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
+    name_in_hypervisor       = "ubuntu"
+    not_started              = false
+  }
+
+  remote_access {
+    vm_console_enabled = true
+    display_credentials {
+      username = "displayuser"
+      password = "displaypassword"
+    }
   }
 }
 
@@ -233,5 +314,21 @@ resource "dcloud_ip_nat_rule" "ip_nat_rule"{
 resource "dcloud_vm_nat_rule" "vm_nat_rule"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm1.network_interfaces[1].uid
-  east_west = false
+  east_west = true
+}
+
+resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
+  topology_uid = dcloud_topology.test_topology.id
+  nic_uid = dcloud_vm.vm2.network_interfaces[1].uid
+  tcp_port = 443
+  url_path = "/testing/url/"
+  hyperlink = "Test Hyperlink"
+  ssl = true
+  show_hyperlink = true
+}
+
+resource "dcloud_mail_server" "mail_server"{
+  topology_uid = dcloud_topology.test_topology.id
+  nic_uid = dcloud_vm.vm4.network_interfaces[0].uid
+  dns_asset_id = "3"
 }

@@ -12,8 +12,8 @@ provider "dcloud" {
 }
 
 resource "dcloud_topology" "test_topology" {
-  name        = "Test Topology For Testing VM NAT Rule"
-  description = "Will be used to load VM NAT rules "
+  name        = "Test Topology For Testing Mail Servers"
+  description = "Will be used to load Mail Servers"
   notes       = ""
   datacenter  = "LON"
 }
@@ -61,17 +61,17 @@ resource "dcloud_vm" "vm1" {
 
 }
 
-resource "dcloud_vm_nat_rule" "vm_nat_rule"{
+resource "dcloud_mail_server" "mail_server"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm1.network_interfaces[0].uid
-  east_west = true
+  dns_asset_id = "3"
 }
 
-data "dcloud_vm_nat_rules" "test_topology_vm_nat_rules"{
+data "dcloud_mail_servers" "test_topology_mail_server"{
   topology_uid = dcloud_topology.test_topology.id
-  depends_on = [dcloud_vm_nat_rule.vm_nat_rule]
+  depends_on = [dcloud_mail_server.mail_server]
 }
 
-output "vm_nat_rules" {
-  value = data.dcloud_vm_nat_rules.test_topology_vm_nat_rules
+output "mail_servers" {
+  value = data.dcloud_mail_servers.test_topology_mail_server
 }
