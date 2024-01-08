@@ -284,7 +284,6 @@ resource "dcloud_vm_nat_rule" "vm_nat_rule"{
 resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
   topology_uid = dcloud_topology.test_topology.id
   nic_uid = dcloud_vm.vm2.network_interfaces[1].uid
-  target_vm_name = dcloud_vm.vm1.name
   tcp_port = 443
   url_path = "/testing/url/"
   hyperlink = "Test Hyperlink"

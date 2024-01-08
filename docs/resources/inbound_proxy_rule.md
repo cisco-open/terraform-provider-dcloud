@@ -15,7 +15,6 @@ description: |-
 ### Required
 
 - `nic_uid` (String)
-- `target_vm_name` (String)
 - `url_path` (String)
 - `hyperlink` (String)
 - `tcp_port` (Integer)
@@ -30,6 +29,7 @@ description: |-
 
 - `id` (String) The ID of this resource.
 - `uid` (String)
+- `target_vm_name` (String)
 
 
 
