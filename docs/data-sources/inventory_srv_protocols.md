@@ -27,6 +27,6 @@ All the inventory srv protocols available to be used in a topology
 Read-Only:
 
 - `id` (String)
-- `protocols` (String)
+- `protocol` (String)
 
 
