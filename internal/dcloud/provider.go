@@ -69,6 +69,9 @@ func Provider() *schema.Provider {
 			"dcloud_vm_nat_rules":                  dataSourceVmNatRules(),
 			"dcloud_inbound_proxy_rules":           dataSourceInboundProxyRules(),
 			"dcloud_mail_servers":                  dataSourceMailServers(),
+			"dcloud_external_dns":                  dataSourceExternalDns(),
+			"dcloud_inventory_dns_assets":          dataSourceInventoryDnsAssets(),
+			"dcloud_inventory_srv_protocols":       dataSourceInventorySrvProtocols(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloud_topology":           resourceTopology(),
@@ -87,6 +90,7 @@ func Provider() *schema.Provider {
 			"dcloud_vm_nat_rule":        resourceVmNat(),
 			"dcloud_inbound_proxy_rule": resourceInboundProxy(),
 			"dcloud_mail_server":        resourceMailServer(),
+			"dcloud_external_dns":       resourceExternalDns(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
