@@ -73,6 +73,8 @@ func resourceExternalDnsCreate(ctx context.Context, data *schema.ResourceData, i
 
 	var diags diag.Diagnostics
 
+	//TODO: Add dnsAsset info in the resource
+
 	d, err := c.CreateExternalDnsRecord(extractExternalDns(data, ctx))
 	if err != nil {
 		return diag.FromErr(err)
