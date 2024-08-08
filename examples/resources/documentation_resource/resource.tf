@@ -20,5 +20,5 @@ resource "dcloud_topology" "test_topology" {
 
 resource "dcloud_documentation" "test_documentation" {
   topology_uid = dcloud_topology.test_topology.id
-  doc_url = "https://johndoe.com"
+  doc_url      = "https://johndoe.com"
 }

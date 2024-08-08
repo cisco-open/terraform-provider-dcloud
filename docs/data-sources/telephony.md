@@ -3,12 +3,12 @@
 page_title: "dcloud_telephony Data Source - terraform-provider-dcloud"
 subcategory: ""
 description: |-
-  All the telephony items currently in a given topology
+  All the Telephony Items currently in a given topology
 ---
 
 # dcloud_telephony (Data Source)
 
-All the telephony items currently in a given topology
+All the Telephony Items currently in a given topology
 
 
 
@@ -22,16 +22,18 @@ All the telephony items currently in a given topology
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-- `telephony-items` (List of Object) (see [below for nested schema](#nestedatt--telephonyItems))
+- `telephony_items` (List of Object) (see [below for nested schema](#nestedatt--telephony_items))
 
-<a id="nestedatt--telephonyItems"></a>
-### Nested Schema for `telephonyItems`
+<a id="nestedatt--telephony_items"></a>
+### Nested Schema for `telephony_items`
 
 Read-Only:
 
-- `topology_uid` (String)
-- `uid` (String)
-- `name` (String)
+- `inventory_telephony_description` (String)
 - `inventory_telephony_id` (String)
 - `inventory_telephony_name` (String)
-- `inventory_description_name` (String)
+- `name` (String)
+- `topology_uid` (String)
+- `uid` (String)
+
+

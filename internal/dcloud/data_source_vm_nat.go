@@ -45,6 +45,10 @@ func dataSourceVmNatRules() *schema.Resource {
 							Type:     schema.TypeBool,
 							Computed: true,
 						},
+						"scope": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"topology_uid": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -87,6 +91,7 @@ func convertVmNatRuleDataResource(vmNatRule tbclient.VmNatRule) map[string]inter
 	resource["target_ip_address"] = vmNatRule.Target.IpAddress
 	resource["target_name"] = vmNatRule.Target.Name
 	resource["east_west"] = vmNatRule.EastWest
+	resource["scope"] = vmNatRule.Scope
 	resource["nic_uid"] = vmNatRule.Target.VmNic.Uid
 
 	return resource

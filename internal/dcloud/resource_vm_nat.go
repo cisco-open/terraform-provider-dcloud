@@ -40,6 +40,12 @@ func resourceVmNat() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"scope": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				ForceNew:    true,
+				Description: "The scope of the NAT rule, PUBLIC (default) or INTERNAL",
+			},
 		},
 	}
 }
@@ -48,6 +54,13 @@ func resourceVmNatCreate(ctx context.Context, data *schema.ResourceData, i inter
 	c := i.(*tbclient.Client)
 
 	var diags diag.Diagnostics
+
+	var scope *string
+
+	if v, ok := data.GetOk("scope"); ok {
+		s := v.(string)
+		scope = &s
+	}
 
 	vmNatRule := tbclient.VmNatRule{
 		Topology: &tbclient.Topology{
@@ -59,6 +72,7 @@ func resourceVmNatCreate(ctx context.Context, data *schema.ResourceData, i inter
 			},
 		},
 		EastWest: data.Get("east_west").(bool),
+		Scope:    scope,
 	}
 
 	r, err := c.CreateVmNatRule(vmNatRule)
@@ -89,6 +103,7 @@ func resourceVmNatRead(ctx context.Context, data *schema.ResourceData, i interfa
 	data.Set("target_name", r.Target.Name)
 	data.Set("east_west", r.EastWest)
 	data.Set("nic_uid", r.Target.VmNic.Uid)
+	data.Set("scope", r.Scope)
 
 	return diags
 }

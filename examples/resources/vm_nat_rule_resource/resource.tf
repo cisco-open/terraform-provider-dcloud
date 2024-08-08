@@ -26,14 +26,14 @@ resource "dcloud_network" "unrouted_network" {
 }
 
 resource "dcloud_vm" "vm1" {
-  inventory_vm_id   = "7668085"
-  topology_uid      = dcloud_topology.test_topology.id
-  name              = "Ubuntu Desktop 1"
-  description       = "A standard Ubuntu Desktop VM"
-  cpu_qty           = 1
-  memory_mb         = 1024
+  inventory_vm_id = "7668085"
+  topology_uid    = dcloud_topology.test_topology.id
+  name            = "Ubuntu Desktop 1"
+  description     = "A standard Ubuntu Desktop VM"
+  cpu_qty         = 1
+  memory_mb       = 1024
 
-  network_interfaces{
+  network_interfaces {
     network_uid    = dcloud_network.unrouted_network.id
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:03:AA"
@@ -61,8 +61,9 @@ resource "dcloud_vm" "vm1" {
 
 }
 
-resource "dcloud_vm_nat_rule" "test_vm_nat"{
+resource "dcloud_vm_nat_rule" "test_vm_nat" {
   topology_uid = dcloud_topology.test_topology.id
-  nic_uid = dcloud_vm.vm1.network_interfaces[0].uid
-  east_west = true
+  nic_uid      = dcloud_vm.vm1.network_interfaces[0].uid
+  east_west    = true
+  scope        = "INTERNAL"
 }

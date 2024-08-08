@@ -56,7 +56,7 @@ resource "dcloud_vm" "vm1" {
     type        = "VIRTUAL_E1000"
   }
 
-  network_interfaces{
+  network_interfaces {
     network_uid    = dcloud_network.unrouted_network.id
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:01:AB"
@@ -112,7 +112,7 @@ resource "dcloud_vm" "vm2" {
     type        = "VIRTUAL_E1000"
   }
 
-  network_interfaces{
+  network_interfaces {
     network_uid    = dcloud_network.unrouted_network.id
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:02:AB"
@@ -125,14 +125,14 @@ resource "dcloud_vm" "vm2" {
 }
 
 resource "dcloud_vm" "vm3" {
-  inventory_vm_id   = "7668085"
-  topology_uid      = dcloud_topology.test_topology.id
-  name              = "Ubuntu Desktop 3"
-  description       = "A standard Ubuntu Desktop VM"
-  cpu_qty           = 1
-  memory_mb         = 1024
+  inventory_vm_id = "7668085"
+  topology_uid    = dcloud_topology.test_topology.id
+  name            = "Ubuntu Desktop 3"
+  description     = "A standard Ubuntu Desktop VM"
+  cpu_qty         = 1
+  memory_mb       = 1024
 
-  network_interfaces{
+  network_interfaces {
     network_uid    = dcloud_network.unrouted_network.id
     name           = "Network adapter 1"
     mac_address    = "00:50:56:00:03:AA"
@@ -260,50 +260,52 @@ resource "dcloud_scenario" "scenario" {
 
 resource "dcloud_documentation" "documentation" {
   topology_uid = dcloud_topology.test_topology.id
-  doc_url = "https://johndoe.com"
+  doc_url      = "https://johndoe.com"
 }
 
 resource "dcloud_telephony" "telephony" {
-  topology_uid = dcloud_topology.test_topology.id
+  topology_uid           = dcloud_topology.test_topology.id
   inventory_telephony_id = "1"
 }
 
-resource "dcloud_ip_nat_rule" "ip_nat_rule"{
-  topology_uid = dcloud_topology.test_topology.id
+resource "dcloud_ip_nat_rule" "ip_nat_rule" {
+  topology_uid      = dcloud_topology.test_topology.id
   target_ip_address = "192.168.1.1"
-  target_name = "Sample Device"
-  east_west = false
+  target_name       = "Sample Device"
+  east_west         = false
+  scope             = "PUBLIC"
 }
 
-resource "dcloud_vm_nat_rule" "vm_nat_rule"{
+resource "dcloud_vm_nat_rule" "vm_nat_rule" {
   topology_uid = dcloud_topology.test_topology.id
-  nic_uid = dcloud_vm.vm1.network_interfaces[1].uid
-  east_west = true
+  nic_uid      = dcloud_vm.vm1.network_interfaces[1].uid
+  east_west    = true
+  scope        = "INTERNAL"
 }
 
-resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule"{
-  topology_uid = dcloud_topology.test_topology.id
-  nic_uid = dcloud_vm.vm2.network_interfaces[1].uid
-  tcp_port = 443
-  url_path = "/testing/url/"
-  hyperlink = "Test Hyperlink"
-  ssl = true
+resource "dcloud_inbound_proxy_rule" "inbound_proxy_rule" {
+  topology_uid   = dcloud_topology.test_topology.id
+  nic_uid        = dcloud_vm.vm2.network_interfaces[1].uid
+  tcp_port       = 443
+  url_path       = "/testing/url/"
+  hyperlink      = "Test Hyperlink"
+  ssl            = true
   show_hyperlink = true
 }
 
-resource "dcloud_external_dns" "external_dns"{
+resource "dcloud_external_dns" "external_dns" {
   topology_uid = dcloud_topology.test_topology.id
-  nat_rule_id = dcloud_ip_nat_rule.ip_nat_rule.id
-  hostname = "localhost"
-  srv_records{
-    service = "_test"
+  nat_rule_id  = dcloud_ip_nat_rule.ip_nat_rule.id
+  hostname     = "localhost"
+  srv_records {
+    service  = "_test"
     protocol = "TCP"
-    port = 8081
+    port     = 8081
   }
 }
 
-resource "dcloud_mail_server" "mail_server"{
+resource "dcloud_mail_server" "mail_server" {
   topology_uid = dcloud_topology.test_topology.id
-  nic_uid = dcloud_vm.vm3.network_interfaces[0].uid
+  nic_uid      = dcloud_vm.vm3.network_interfaces[0].uid
   dns_asset_id = "3"
 }

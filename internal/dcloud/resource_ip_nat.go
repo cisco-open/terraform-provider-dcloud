@@ -37,6 +37,12 @@ func resourceIpNat() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"scope": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				ForceNew:    true,
+				Description: "The scope of the NAT rule, PUBLIC (default) or INTERNAL",
+			},
 		},
 	}
 }
@@ -45,6 +51,13 @@ func resourceIpNatCreate(ctx context.Context, data *schema.ResourceData, i inter
 	c := i.(*tbclient.Client)
 
 	var diags diag.Diagnostics
+
+	var scope *string
+
+	if v, ok := data.GetOk("scope"); ok {
+		s := v.(string)
+		scope = &s
+	}
 
 	ipNatRule := tbclient.IpNatRule{
 		Topology: &tbclient.Topology{
@@ -55,6 +68,7 @@ func resourceIpNatCreate(ctx context.Context, data *schema.ResourceData, i inter
 			Name:      data.Get("target_name").(string),
 		},
 		EastWest: data.Get("east_west").(bool),
+		Scope:    scope,
 	}
 
 	r, err := c.CreateIpNatRule(ipNatRule)
@@ -84,6 +98,7 @@ func resourceIpNatRead(ctx context.Context, data *schema.ResourceData, i interfa
 	data.Set("target_ip_address", r.Target.IpAddress)
 	data.Set("target_name", r.Target.Name)
 	data.Set("east_west", r.EastWest)
+	data.Set("scope", r.Scope)
 
 	return diags
 }
