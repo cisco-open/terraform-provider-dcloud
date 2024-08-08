@@ -17,15 +17,15 @@ description: |-
 
 ### Required
 
-- `topology_uid` (String)
 - `inventory_telephony_id` (String)
+- `topology_uid` (String)
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-- `uid` (String)
-- `name` (String)
-- `inventory_telephony_name` (String)
 - `inventory_telephony_description` (String)
+- `inventory_telephony_name` (String)
+- `name` (String)
+- `uid` (String)
 
 

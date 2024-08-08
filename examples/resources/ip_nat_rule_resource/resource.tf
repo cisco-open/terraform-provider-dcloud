@@ -18,9 +18,10 @@ resource "dcloud_topology" "test_topology" {
   datacenter  = "LON"
 }
 
-resource "dcloud_ip_nat_rule" "test_ip_nat"{
-  topology_uid = dcloud_topology.test_topology.id
+resource "dcloud_ip_nat_rule" "test_ip_nat" {
+  topology_uid      = dcloud_topology.test_topology.id
   target_ip_address = "192.168.1.1"
-  target_name = "Sample Device"
-  east_west = true
+  target_name       = "Sample Device"
+  east_west         = true
+  scope             = "PUBLIC"
 }

@@ -3,12 +3,12 @@
 page_title: "dcloud_inventory_telephony Data Source - terraform-provider-dcloud"
 subcategory: ""
 description: |-
-  All the inventory telephony available to be used in a topology
+  All the inventory Telephony Items available to be used in a topology
 ---
 
 # dcloud_inventory_telephony (Data Source)
 
-All the inventory telephony available to be used in a topology
+All the inventory Telephony Items available to be used in a topology
 
 
 
@@ -29,8 +29,8 @@ All the inventory telephony available to be used in a topology
 
 Read-Only:
 
+- `description` (String)
 - `id` (String)
 - `name` (String)
-- `description` (String)
 
 

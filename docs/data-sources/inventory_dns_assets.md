@@ -3,12 +3,12 @@
 page_title: "dcloud_inventory_dns_assets Data Source - terraform-provider-dcloud"
 subcategory: ""
 description: |-
-  All the inventory dns assets available to be used in a topology
+  All the Inventory DNS assets in a given topology
 ---
 
 # dcloud_inventory_dns_assets (Data Source)
 
-All the inventory dns assets available to be used in a topology
+All the Inventory DNS assets in a given topology
 
 
 

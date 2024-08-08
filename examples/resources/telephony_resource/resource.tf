@@ -20,5 +20,5 @@ resource "dcloud_topology" "test_topology" {
 
 resource "dcloud_telephony" "test_telephony" {
   inventory_telephony_id = "1"
-  topology_uid         = dcloud_topology.test_topology.id
+  topology_uid           = dcloud_topology.test_topology.id
 }

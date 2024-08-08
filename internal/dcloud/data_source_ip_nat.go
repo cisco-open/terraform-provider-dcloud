@@ -41,6 +41,10 @@ func dataSourceIpNatRules() *schema.Resource {
 							Type:     schema.TypeBool,
 							Computed: true,
 						},
+						"scope": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"topology_uid": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -83,6 +87,7 @@ func convertIpNatRuleDataResource(ipNatRule tbclient.IpNatRule) map[string]inter
 	resource["target_ip_address"] = ipNatRule.Target.IpAddress
 	resource["target_name"] = ipNatRule.Target.Name
 	resource["east_west"] = ipNatRule.EastWest
+	resource["scope"] = ipNatRule.Scope
 
 	return resource
 }

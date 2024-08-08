@@ -3,12 +3,12 @@
 page_title: "dcloud_vm_nat_rules Data Source - terraform-provider-dcloud"
 subcategory: ""
 description: |-
-  All the VM Nat rules currently in a given topology
+  All the VM Nat rules in a given topology
 ---
 
 # dcloud_vm_nat_rules (Data Source)
 
-All the VM Nat rules currently in a given topology
+All the VM Nat rules in a given topology
 
 
 
@@ -29,10 +29,11 @@ All the VM Nat rules currently in a given topology
 
 Read-Only:
 
+- `east_west` (Boolean)
+- `nic_uid` (String)
+- `scope` (String)
 - `target_ip_address` (String)
 - `target_name` (String)
-- `nic_uid` (String)
-- `east_west` (Bool)
 - `topology_uid` (String)
 - `uid` (String)
 

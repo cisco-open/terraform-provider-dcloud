@@ -18,26 +18,26 @@ resource "dcloud_topology" "test_topology" {
   datacenter  = "LON"
 }
 
-resource "dcloud_ip_nat_rule" "test_topology_ip_nat_rule"{
-  topology_uid = dcloud_topology.test_topology.id
+resource "dcloud_ip_nat_rule" "test_topology_ip_nat_rule" {
+  topology_uid      = dcloud_topology.test_topology.id
   target_ip_address = "192.168.1.1"
-  target_name = "Sample Device"
-  east_west = false
+  target_name       = "Sample Device"
+  east_west         = false
 }
 
-resource "dcloud_external_dns" "test_topology_external_dns"{
+resource "dcloud_external_dns" "test_topology_external_dns" {
   topology_uid = dcloud_topology.test_topology.id
-  nat_rule_id = dcloud_ip_nat_rule.test_topology_ip_nat_rule.id
-  hostname = "localhost"
-  srv_records{
-    service = "_test"
+  nat_rule_id  = dcloud_ip_nat_rule.test_topology_ip_nat_rule.id
+  hostname     = "localhost"
+  srv_records {
+    service  = "_test"
     protocol = "TCP"
-    port = 8081
+    port     = 8081
   }
 }
 
-data "dcloud_external_dns" "external_dns_test"{
-  depends_on = [dcloud_external_dns.test_topology_external_dns]
+data "dcloud_external_dns" "external_dns_test" {
+  depends_on   = [dcloud_external_dns.test_topology_external_dns]
   topology_uid = dcloud_topology.test_topology.id
 }
 
