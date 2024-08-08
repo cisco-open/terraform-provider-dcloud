@@ -35,11 +35,11 @@ jobs:
           gpg_private_key: ${{ secrets.TERRAFORM_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.TERRAFORM_GPG_PASSPHRASE }}
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2.5.0
-        with:
-          version: 2
+        uses: goreleaser/goreleaser-action@v6
+        with: 
+          distribution: goreleaser
+          version: "~> v2"
           args: release --clean
         env:
-          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
-          # GitHub sets this automatically
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
