@@ -62,6 +62,7 @@ resource "dcloud_vm" "vm1" {
     bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
     name_in_hypervisor       = "ubuntu"
     not_started              = false
+    evc_mode                 = "SKYLAKE"
   }
 
   network_interfaces {
@@ -114,6 +115,7 @@ resource "dcloud_vm" "vm2" {
     bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 ad"
     name_in_hypervisor       = "ubuntu"
     not_started              = false
+    evc_mode                 = "HASWELL"
   }
 
   remote_access {
@@ -163,6 +165,7 @@ resource "dcloud_vm" "vm3" {
     bios_uuid                = "42 3a 5f 9d f1 a8 7c 0e-7d c2 44 27 2e d6 67 aa"
     name_in_hypervisor       = "ubuntu"
     not_started              = false
+    evc_mode                 = "WESTMERE"
   }
 
   remote_access {

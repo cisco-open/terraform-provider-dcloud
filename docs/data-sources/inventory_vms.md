@@ -31,6 +31,7 @@ Read-Only:
 
 - `cpu_qty` (Number)
 - `datacenter` (String)
+- `evc_mode` (Number)
 - `id` (String)
 - `memory_mb` (Number)
 - `network_interfaces` (List of Object) (see [below for nested schema](#nestedobjatt--inventory_vms--network_interfaces))

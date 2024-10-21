@@ -78,6 +78,11 @@ func resourceVm() *schema.Resource {
 							Type:     schema.TypeBool,
 							Required: true,
 						},
+						"evc_mode": {
+							Type:        schema.TypeString,
+							Optional:    true,
+							Description: "The EVC mode of the VM, defaults to the EVC mode of the inventory VM if not specified",
+						},
 					},
 				},
 			},
@@ -294,11 +299,17 @@ func extractVm(data *schema.ResourceData, ctx context.Context) tbclient.Vm {
 
 	if advancedSettings := data.Get("advanced_settings"); advancedSettings != nil && (len(advancedSettings.([]interface{})) > 0) {
 		as := advancedSettings.([]interface{})[0].(map[string]interface{})
+		var evcMode *string
+		if as["evc_mode"].(string) != "" {
+			s := as["evc_mode"].(string)
+			evcMode = &s
+		}
 		vm.AdvancedSettings = &tbclient.VmAdvancedSettings{
 			NameInHypervisor:      as["name_in_hypervisor"].(string),
 			BiosUuid:              as["bios_uuid"].(string),
 			NotStarted:            as["not_started"].(bool),
 			AllDisksNonPersistent: as["all_disks_non_persistent"].(bool),
+			EvcMode:               evcMode,
 		}
 	}
 
