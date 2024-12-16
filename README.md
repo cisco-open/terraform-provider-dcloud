@@ -15,6 +15,10 @@ This Terraform provider allows you to manage Topologies, Networks, VMs, and Hard
 ```sh
 $ go install
 ```
+1. Install the provider locally for Terraform using the Makefile:
+```sh
+$ make install
+```
 
 ## Using the provider
 
