@@ -301,8 +301,7 @@ func extractVm(data *schema.ResourceData, ctx context.Context) tbclient.Vm {
 		as := advancedSettings.([]interface{})[0].(map[string]interface{})
 		var evcMode string
 		if as["evc_mode"].(string) != "" {
-			s := as["evc_mode"].(string)
-			evcMode = s
+			evcMode = as["evc_mode"].(string)
 		}
 		vm.AdvancedSettings = &tbclient.VmAdvancedSettings{
 			NameInHypervisor:      as["name_in_hypervisor"].(string),
