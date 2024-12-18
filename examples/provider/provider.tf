@@ -205,6 +205,12 @@ resource "dcloud_vm_start_order" "vm_start_order" {
     delay_seconds = 20
     vm_uid        = dcloud_vm.vm2.id
   }
+
+    start_positions {
+      position      = 3
+      delay_seconds = 30
+      vm_uid        = dcloud_vm.vm3.id
+    }
 }
 
 resource "dcloud_vm_stop_order" "vm_stop_order" {
@@ -219,6 +225,11 @@ resource "dcloud_vm_stop_order" "vm_stop_order" {
   stop_positions {
     position = 2
     vm_uid   = dcloud_vm.vm1.id
+  }
+
+  stop_positions {
+    position = 3
+    vm_uid   = dcloud_vm.vm3.id
   }
 }
 
