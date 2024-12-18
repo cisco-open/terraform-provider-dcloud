@@ -32,6 +32,7 @@ Read-Only:
 - `cpu_qty` (Number)
 - `datacenter` (String)
 - `description` (String)
+- `evc_mode` (String)
 - `id` (String)
 - `memory_mb` (Number)
 - `name` (String)

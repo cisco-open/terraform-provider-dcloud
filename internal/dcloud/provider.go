@@ -72,6 +72,7 @@ func Provider() *schema.Provider {
 			"dcloud_external_dns":                  dataSourceExternalDns(),
 			"dcloud_inventory_dns_assets":          dataSourceInventoryDnsAssets(),
 			"dcloud_inventory_srv_protocols":       dataSourceInventorySrvProtocols(),
+			"dcloud_evc_modes":                     dataSourceEvcModes(),
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"dcloud_topology":           resourceTopology(),

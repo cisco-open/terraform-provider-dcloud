@@ -36,6 +36,8 @@ To compile the provider, run `go install`. This will build the provider and put 
 
 To generate or update documentation, run `go generate`.
 
+Run `make` to copy the provider binary to the default Terraform plugin directory.
+
 In order to run the full suite of Acceptance tests, run `make testacc`.
 
 *Note:* Acceptance tests create real resources, and often cost money to run.
@@ -73,6 +75,19 @@ terraform {
 This will use the locally installed provider which has been installed by `make`
 
 Ensure the change is rolled back prior to committing
+
+### Using a local dcloud-tb-go-client during development
+
+If you are developing the provider and need to use a local version of the dcloud-tb-go-client then apply an override in the `go.mod` file.
+Make sure to use the same version of the dcloud-tb-go-client in the `replace` directive as defined in the `require` directive.
+
+```go
+replace (
+    github.com/cisco-open/dcloud-tb-go-client v1.0.6 => ../dcloud-tb-go-client
+)
+```
+
+Ensure the change is rolled back prior to committing.
 
 ## Dependencies
 

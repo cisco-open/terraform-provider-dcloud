@@ -50,6 +50,7 @@ Read-Only:
 
 - `all_disks_non_persistent` (Boolean)
 - `bios_uuid` (String)
+- `evc_mode` (String)
 - `name_in_hypervisor` (String)
 - `not_started` (Boolean)
 

@@ -88,6 +88,10 @@ func dataSourceVms() *schema.Resource {
 										Type:     schema.TypeBool,
 										Computed: true,
 									},
+									"evc_mode": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
 								},
 							},
 						},

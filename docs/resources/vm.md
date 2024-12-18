@@ -70,6 +70,10 @@ Required:
 - `name_in_hypervisor` (String)
 - `not_started` (Boolean)
 
+Optional:
+
+- `evc_mode` (String) The EVC mode of the VM, defaults to the EVC mode of the inventory VM if not specified
+
 
 <a id="nestedblock--guest_automation"></a>
 ### Nested Schema for `guest_automation`

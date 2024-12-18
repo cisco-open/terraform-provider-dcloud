@@ -65,6 +65,10 @@ func dataSourceInventoryVms() *schema.Resource {
 							Type:     schema.TypeInt,
 							Computed: true,
 						},
+						"evc_mode": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"remote_access_rdp_auto_login": {
 							Type:     schema.TypeBool,
 							Computed: true,
@@ -153,6 +157,7 @@ func convertInventoryVmToDataResource(inventoryVm tbclient.InventoryVm) map[stri
 	resource["original_description"] = inventoryVm.OriginalDescription
 	resource["cpu_qty"] = inventoryVm.CpuQty
 	resource["memory_mb"] = inventoryVm.MemoryMb
+	resource["evc_mode"] = inventoryVm.EvcMode
 
 	name := inventoryVm.Name
 	if name == "" {
