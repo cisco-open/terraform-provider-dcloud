@@ -66,7 +66,7 @@ func dataSourceInventoryVms() *schema.Resource {
 							Computed: true,
 						},
 						"evc_mode": {
-							Type:     schema.TypeInt,
+							Type:     schema.TypeString,
 							Computed: true,
 						},
 						"remote_access_rdp_auto_login": {
