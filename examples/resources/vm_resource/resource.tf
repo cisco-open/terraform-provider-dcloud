@@ -48,7 +48,7 @@ resource "dcloud_vm" "vm1" {
     name        = "Network adapter 0"
     mac_address = "00:50:56:00:01:AA"
     type        = "VIRTUAL_E1000"
-    ip_address  = "198.18.1.50"
+    ip_address  = "198.18.2.50"
     assign_dhcp = true
   }
 
