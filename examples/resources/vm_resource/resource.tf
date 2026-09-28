@@ -53,7 +53,7 @@ resource "dcloud_vm" "vm1" {
   }
 
   dhcp_config {
-    default_gateway_ip = "198.18.1.1"
+    default_gateway_ip = "198.18.2.1"
     primary_dns_ip     = "198.18.128.1"
     secondary_dns_ip   = "1.1.1.1"
   }
