@@ -69,6 +69,7 @@ Read-Only:
 
 Read-Only:
 
+- `assign_dhcp` (Boolean)
 - `ip_address` (String)
 - `mac_address` (String)
 - `name` (String)

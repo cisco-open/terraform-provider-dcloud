@@ -26,6 +26,7 @@ description: |-
 - `advanced_settings` (Block List, Max: 1) (see [below for nested schema](#nestedblock--advanced_settings))
 - `cpu_qty` (Number)
 - `description` (String)
+- `dhcp_config` (Block List, Max: 1) (see [below for nested schema](#nestedblock--dhcp_config))
 - `guest_automation` (Block List, Max: 1) (see [below for nested schema](#nestedblock--guest_automation))
 - `memory_mb` (Number)
 - `name` (String)
@@ -49,6 +50,7 @@ Required:
 
 Optional:
 
+- `assign_dhcp` (Boolean)
 - `ip_address` (String)
 - `mac_address` (String)
 - `rdp_auto_login` (Boolean)
@@ -73,6 +75,16 @@ Required:
 Optional:
 
 - `evc_mode` (String) The EVC mode of the VM, defaults to the EVC mode of the inventory VM if not specified
+
+
+<a id="nestedblock--dhcp_config"></a>
+### Nested Schema for `dhcp_config`
+
+Optional:
+
+- `default_gateway_ip` (String)
+- `primary_dns_ip` (String)
+- `secondary_dns_ip` (String)
 
 
 <a id="nestedblock--guest_automation"></a>

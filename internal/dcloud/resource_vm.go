@@ -192,6 +192,10 @@ func resourceVm() *schema.Resource {
 							Type:     schema.TypeBool,
 							Optional: true,
 						},
+						"assign_dhcp": {
+							Type:     schema.TypeBool,
+							Optional: true,
+						},
 						"rdp_enabled": {
 							Type:     schema.TypeBool,
 							Optional: true,
@@ -206,6 +210,27 @@ func resourceVm() *schema.Resource {
 			"topology_uid": {
 				Type:     schema.TypeString,
 				Required: true,
+			},
+			"dhcp_config": {
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"default_gateway_ip": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"primary_dns_ip": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"secondary_dns_ip": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
 			},
 		},
 	}
@@ -247,6 +272,7 @@ func resourceVmRead(ctx context.Context, data *schema.ResourceData, i interface{
 	data.Set("remote_access", convertRemoteAccess(*vm))
 	data.Set("guest_automation", convertGuestAutomation(*vm))
 	data.Set("network_interfaces", convertNics(*vm))
+	data.Set("dhcp_config", convertDhcpConfig(*vm))
 
 	return diags
 }
@@ -370,6 +396,7 @@ func extractVm(data *schema.ResourceData, ctx context.Context) tbclient.Vm {
 			MacAddress: nic["mac_address"].(string),
 			IpAddress:  nic["ip_address"].(string),
 			Type:       nic["type"].(string),
+			AssignDhcp: nic["assign_dhcp"].(bool),
 			Rdp: &tbclient.VmNicRdp{
 				Enabled:   nic["rdp_enabled"].(bool),
 				AutoLogin: nic["rdp_auto_login"].(bool),
@@ -381,5 +408,21 @@ func extractVm(data *schema.ResourceData, ctx context.Context) tbclient.Vm {
 		nics[i] = n
 	}
 	vm.VmNetworkInterfaces = nics
+
+	if dhcpConfig := data.Get("dhcp_config"); dhcpConfig != nil && (len(dhcpConfig.([]interface{})) > 0) {
+		dc := dhcpConfig.([]interface{})[0].(map[string]interface{})
+		cfg := &tbclient.VmDhcpConfig{}
+		if s := dc["default_gateway_ip"].(string); s != "" {
+			cfg.DefaultGatewayIp = &s
+		}
+		if s := dc["primary_dns_ip"].(string); s != "" {
+			cfg.PrimaryDnsIp = &s
+		}
+		if s := dc["secondary_dns_ip"].(string); s != "" {
+			cfg.SecondaryDnsIp = &s
+		}
+		vm.DhcpConfig = cfg
+	}
+
 	return vm
 }

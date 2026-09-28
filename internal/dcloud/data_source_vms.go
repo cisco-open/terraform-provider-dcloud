@@ -196,6 +196,10 @@ func dataSourceVms() *schema.Resource {
 										Type:     schema.TypeBool,
 										Computed: true,
 									},
+									"assign_dhcp": {
+										Type:     schema.TypeBool,
+										Computed: true,
+									},
 									"rdp_enabled": {
 										Type:     schema.TypeBool,
 										Computed: true,
@@ -341,6 +345,23 @@ func convertGuestAutomation(vm tbclient.Vm) []interface{} {
 	return nil
 }
 
+func convertDhcpConfig(vm tbclient.Vm) []interface{} {
+	if dc := vm.DhcpConfig; dc != nil {
+		m := make(map[string]interface{})
+		if dc.DefaultGatewayIp != nil {
+			m["default_gateway_ip"] = *dc.DefaultGatewayIp
+		}
+		if dc.PrimaryDnsIp != nil {
+			m["primary_dns_ip"] = *dc.PrimaryDnsIp
+		}
+		if dc.SecondaryDnsIp != nil {
+			m["secondary_dns_ip"] = *dc.SecondaryDnsIp
+		}
+		return []interface{}{m}
+	}
+	return nil
+}
+
 func convertNics(vm tbclient.Vm) []map[string]interface{} {
 	nics := make([]map[string]interface{}, len(vm.VmNetworkInterfaces))
 
@@ -357,6 +378,7 @@ func convertNics(vm tbclient.Vm) []map[string]interface{} {
 		n["ip_address"] = nic.IpAddress
 		n["type"] = nic.Type
 		n["network_uid"] = nic.Network.Uid
+		n["assign_dhcp"] = nic.AssignDhcp
 
 		if rdp := nic.Rdp; rdp != nil {
 			n["rdp_enabled"] = rdp.Enabled
